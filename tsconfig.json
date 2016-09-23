@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "allowJs": false,
+        "declaration": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noImplicitAny": false,
+        "noImplicitReturns": true,
+        "removeComments": false,
+        "sourceMap": true,
+        "outDir": "dist/es5",
+        "target": "es5"
+    },
+    "files": [
+        "src/index.ts"
+    ]
+}
