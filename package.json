@@ -1,5 +1,5 @@
 {
-  "name": "ionic-storage",
+  "name": "@ionic/storage",
   "version": "1.0.0",
   "description": "Ionic Storage utility",
   "main": "dist/es5/index.js",
