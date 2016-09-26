@@ -2,10 +2,11 @@
   "compilerOptions": {
     "declaration": true,
     "lib": ["dom", "es2015"],
+    "experimentalDecorators": true,
     "module": "commonjs",
     "outDir": "./dist/es5",
     "target": "es5",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "typeRoots": [
       "./node_modules/@types"
     ],

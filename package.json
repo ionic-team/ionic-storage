@@ -1,6 +1,6 @@
 {
   "name": "@ionic/storage",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Ionic Storage utility",
   "main": "dist/es5/index.js",
   "typings": "dist/es5/index.d.ts",
@@ -28,6 +28,7 @@
   "dependencies": {
     "@angular/core": "^2.0.0",
     "localforage": "^1.4.2",
+    "localforage-cordovasqlitedriver": "driftyco/localforage-cordovasqlitedriver#9803562a61c2172a69f3475f97e98922c0b49ac0",
     "rxjs": "5.0.0-beta.12"
   },
   "devDependencies": {
