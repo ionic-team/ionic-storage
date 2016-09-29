@@ -5,6 +5,8 @@ One reason we prioritize SQLite is because of some OS-dependent issues with stor
 
 If you want to perform arbitrary SQL queries and have one of the best storage options around, we recommend using the [Ionic Native SQLite plugin](http://ionicframework.com/docs/v2/native/sqlite/) directly. This engine no longer supports the `query` feature underneath as it was not portable and only worked for SQLite anyways.
 
+For those coming from Ionic pre RC.0, here is more insight in to the reason for us moving to this module: https://github.com/driftyco/ionic/issues/8269#issuecomment-250590367
+
 ### Usage
 
 To use this in your Ionic 2/Angular 2 apps, either start a fresh Ionic project which has it installed by default, or run:
