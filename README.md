@@ -13,7 +13,7 @@ npm install @ionic/storage
 
 Then edit your NgModule declaration in `src/app/app.module.ts`) to add `Storage` as a provider:
 
-```
+```typescript
 import { Storage } from '@ionic/storage';
 
 @NgModule({
@@ -34,7 +34,7 @@ export class AppModule {}
 
 Now, you can easily inject `Storage` into a component:
 
-```
+```typescript
 import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
