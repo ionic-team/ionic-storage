@@ -109,4 +109,16 @@ export class Storage {
     return this._db.iterate(iteratorCallback);
   }
 
+  /**
+   * Set storage engine
+   * @param engine engine allows you to specify a specific storage engine to use. Can be INDEXEDB, WEBSQL or LOCALSTORAGE
+   */
+  setEngine(engine: string) {
+    if (engine !== 'INDEXEDB' || engine !== 'WEBSQL' || engine !== 'LOCALSTORAGE') {
+      console.error('Engine not recognized, engine choices are INDEXEDDB, WEBSQL and LOCALSTORAGE');
+    } else {
+      this._db.setDriver(this._db.engine);
+    }
+  }
+
 }
