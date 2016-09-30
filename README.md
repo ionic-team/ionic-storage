@@ -73,3 +73,11 @@ this.storage.get('name').then((name) => {
 });
 ```
 
+### Development and release
+
+When you're ready to release a new version, run the following commands:
+
+1.  npm version (patch|minor|major)
+2.  npm run build
+3.  cd dist
+4.  npm publish

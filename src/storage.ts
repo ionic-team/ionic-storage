@@ -1,14 +1,8 @@
 import { Injectable } from '@angular/core';
 
-//import LocalForage = require('localforage');
-//import * as LocalForage from 'localforage';
-import * as LocalForage from 'localforage';
+import LocalForage from 'localforage';
 
-//declare var LocalForage;
-
-import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
-
-//console.log('Loaded CordovaSQLiteDriver', CordovaSQLiteDriver);
+import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 
 
 /**
@@ -31,21 +25,15 @@ export class Storage {
 
   constructor() {
     // TODO: Remove this once we figure out our proper build
-    if(LocalForage['default']) {
-      this._db = LocalForage['default'];
-    } else {
-      this._db = LocalForage;
-    }
+    this._db = LocalForage;
 
     this._db.config({
       name        : '_ionicstorage',
       storeName   : '_ionickv'
     });
 
-    var sqliteDriver = CordovaSQLiteDriver['default'];
-
     this._db.setDriver([
-      //ggsqliteDriver._driver,
+      CordovaSQLiteDriver._driver,
       this._db.INDEXEDDB,
       this._db.WEBSQL,
       this._db.LOCALSTORAGE
