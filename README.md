@@ -7,13 +7,23 @@ If you want to perform arbitrary SQL queries and have one of the best storage op
 
 For those coming from Ionic pre RC.0, here is more insight in to the reason for us moving to this module: https://github.com/driftyco/ionic/issues/8269#issuecomment-250590367
 
-### Usage
+### Installation
 
 To use this in your Ionic 2/Angular 2 apps, either start a fresh Ionic project which has it installed by default, or run:
 
 ```bash
 npm install @ionic/storage
 ```
+
+If you'd like to use SQLite as a storage engine, install a SQLite plugin (only works while running in a simulator or on device): 
+
+```bash
+cordova plugin add cordova-sqlite-storage --save
+```
+
+### Usage
+
+
 
 Then edit your NgModule declaration in `src/app/app.module.ts`) to add `Storage` as a provider:
 
