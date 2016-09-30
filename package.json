@@ -4,7 +4,7 @@
   "description": "Ionic Storage utility",
   "main": "es2015/index.js",
   "module": "es2015/index.js",
-  "typings": "es5/index.d.ts",
+  "typings": "es2015/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
     "build-cjs": "tsc -p .",
