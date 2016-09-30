@@ -111,7 +111,7 @@ export class Storage {
 
   /**
    * Set storage engine
-   * @param engine engine allows you to specify a specific storage engine to use. Can be INDEXEDB, WEBSQL or LOCALSTORAGE
+   * @param engine engine allows you to specify a specific storage engine to use.
    */
   setEngine(engine: string) {
     this._db.setDriver(this._db.engine);
