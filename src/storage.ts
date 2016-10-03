@@ -6,25 +6,66 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 
 
 /**
- * Storage is an easy way to store key/value pairs and other complicated
- * data in a way that uses a variety of storage engines underneath. Currently,
- * Storage uses localforage underneath to abstract away the various storage
- * engines while still providing a simple API.
+ * Storage is an easy way to store key/value pairs and JSON objects.
+ * Storage uses a variety of storage engines underneath, picking the best one available
+ * depending on the platform.
  *
- * When running natively, Storage will prioritize using SQLite, as it's one of
+ * When running in a native app context, Storage will prioritize using SQLite, as it's one of
  * the most stable and widely used file-based databases, and avoids some of the
- * pitfalls of things like localstorage that the OS can decide to clear out in
- * low disk-space situations.
+ * pitfalls of things like localstorage and IndexedDB, such as the OS deciding to clear out such
+ * data in low disk-space situations.
  *
  * When running in the web or as a Progressive Web App, Storage will attempt to use
  * IndexedDB, WebSQL, and localstorage, in that order.
+ *
+ * @usage
+ * First, install the package (comes by default for Ionic 2 apps >= RC.0)
+ * ```bash
+ * npm install --save @ionic/storage
+ * ```
+ *
+ * Next, add it to the providers list in your `NgModule` declaration (for example, in `src/app.module.ts`):
+ *
+ * ```typescript
+  import { Storage } from '@ionic/storage';
+
+  @NgModule({
+    declarations: [
+      // ...
+    ],
+    imports: [
+      IonicModule.forRoot(MyApp)
+    ],
+    bootstrap: [IonicApp],
+    entryComponents: [
+      // ...
+    ],
+    providers: [
+      Storage
+    ]
+  })
+  export class AppModule {}
+ *```
+ *
+ * Finally, inject it into any of your components or pages:
+ * ```typescript
+ * import { Storage } from '@ionic/storage';
+
+ * export class MyApp {
+ *   constructor(storage: Storage) {
+ *      storage.set('name', 'Max');
+ *      storage.get('name').then((val) => {
+ *        console.log('Your name is', val);
+ *      })
+ *   }
+ * }
+ * ```
  */
 @Injectable()
 export class Storage {
   _db: any;
 
   constructor() {
-    // TODO: Remove this once we figure out our proper build
     this._db = LocalForage;
 
     this._db.config({
