@@ -72,13 +72,14 @@ export class Storage {
       name        : '_ionicstorage',
       storeName   : '_ionickv'
     });
-
-    this._db.setDriver([
+    this._db.defineDriver(CordovaSQLiteDriver).then(() => this._db.setDriver([
       CordovaSQLiteDriver._driver,
       this._db.INDEXEDDB,
       this._db.WEBSQL,
       this._db.LOCALSTORAGE
-    ])
+    ])).then(() => {
+      console.info('Ionic Storage driver:', this._db.driver());
+    });
   }
 
   /**
