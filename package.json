@@ -38,6 +38,11 @@
   },
   "devDependencies": {
     "@types/node": "^6.0.41",
+    "cpr": "^2.0.0",
+    "dgeni": "^0.4.2",
+    "dgeni-packages": "^0.16.0",
+    "gulp": "^3.9.1",
+    "semver": "^5.3.0",
     "tslint": "^3.10.2",
     "tslint-ionic-rules": "*",
     "typescript": "^2.0.3"
