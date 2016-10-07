@@ -1,3 +1,5 @@
+[![Circle CI](https://circleci.com/gh/driftyco/ionic-storage.svg?style=shield)](https://circleci.com/gh/driftyco/ionic-storage) 
+
 # Ionic Storage
 A simple key-value Storage module for Ionic apps based on LocalForage, with out-of-the-box support for SQLite. This utility makes it easy to use the best storage engine available without having to interact with it directly. Currently the ordering is SQLite, IndexedDB, WebSQL, and LocalStorage.
 
@@ -15,7 +17,7 @@ To use this in your Ionic 2/Angular 2 apps, either start a fresh Ionic project w
 npm install @ionic/storage
 ```
 
-If you'd like to use SQLite as a storage engine, install a SQLite plugin (only works while running in a simulator or on device): 
+If you'd like to use SQLite as a storage engine, install a SQLite plugin (only works while running in a simulator or on device):
 
 ```bash
 cordova plugin add cordova-sqlite-storage --save
