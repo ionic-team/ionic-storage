@@ -18,7 +18,6 @@ dependencies:
 test:
   override:
     - npm test
-    - npm run build
 
 deployment:
  staging:

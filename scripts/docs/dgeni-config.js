@@ -13,7 +13,7 @@ var config = require('../config.json');
 // Define the dgeni package for generating the docs
 module.exports = function(currentVersion) {
 
-  return new Package('ionic-cloud-client-docs',
+  return new Package('ionic-storage-docs',
                      [jsdocPackage, nunjucksPackage, typescriptPackage,
                       linksPackage, gitPackage])
 

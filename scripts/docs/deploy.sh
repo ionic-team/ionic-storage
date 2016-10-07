@@ -36,7 +36,7 @@ function run {
     echo "https://github.com/driftyco/$CIRCLE_PROJECT_REPONAME/commit/$CIRCLE_SHA1"
   else
     git add -A
-    git commit -am "Automated build of cloud client v$VERSION driftyco/$CIRCLE_PROJECT_REPONAME@$CIRCLE_SHA1"
+    git commit -am "Automated build of ionic-storage v$VERSION driftyco/$CIRCLE_PROJECT_REPONAME@$CIRCLE_SHA1"
     # in case a different commit was pushed to ionic-site during doc/demo gen,
     # try to rebase around it before pushing
     git fetch
