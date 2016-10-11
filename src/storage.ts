@@ -19,7 +19,13 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * IndexedDB, WebSQL, and localstorage, in that order.
  *
  * @usage
- * First, install the package (comes by default for Ionic 2 apps >= RC.0)
+ * First, if you'd like to use SQLite, install the cordova-sqlite-storage plugin:
+ * ```bash
+ * cordova plugin add cordova-sqlite-storage --save
+ * ```
+ *
+ * Next, install the package (comes by default for Ionic 2 apps >= RC.0)
+ *
  * ```bash
  * npm install --save @ionic/storage
  * ```
