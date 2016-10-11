@@ -33,7 +33,7 @@
     "@angular/core": "^2.0.0",
     "@types/localforage": "0.0.30",
     "localforage": "^1.4.2",
-    "localforage-cordovasqlitedriver": "driftyco/localforage-cordovasqlitedriver#9803562a61c2172a69f3475f97e98922c0b49ac0",
+    "localforage-cordovasqlitedriver": "^1.5.0",
     "rxjs": "5.0.0-beta.12"
   },
   "devDependencies": {
