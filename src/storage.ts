@@ -69,22 +69,23 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  */
 @Injectable()
 export class Storage {
-  _db: any;
+  private _db: Promise<LocalForage>;
 
   constructor() {
-    this._db = LocalForage;
-
-    this._db.config({
-      name        : '_ionicstorage',
-      storeName   : '_ionickv'
-    });
-    this._db.defineDriver(CordovaSQLiteDriver).then(() => this._db.setDriver([
-      CordovaSQLiteDriver._driver,
-      this._db.INDEXEDDB,
-      this._db.WEBSQL,
-      this._db.LOCALSTORAGE
-    ])).then(() => {
-      console.info('Ionic Storage driver:', this._db.driver());
+    this._db = new Promise((resolve, reject) => {
+      LocalForage.config({
+        name        : '_ionicstorage',
+        storeName   : '_ionickv'
+      });
+      LocalForage.defineDriver(CordovaSQLiteDriver).then(() => LocalForage.setDriver([
+        CordovaSQLiteDriver._driver,
+        LocalForage.INDEXEDDB,
+        LocalForage.WEBSQL,
+        LocalForage.LOCALSTORAGE
+      ])).then(() => {
+        console.info('Ionic Storage driver:', LocalForage.driver());
+        resolve(LocalForage);
+      }).catch(error => reject(error));
     });
   }
 
@@ -93,7 +94,7 @@ export class Storage {
    * @return Promise that resolves with the value
    */
   get(key: string): Promise<any> {
-    return this._db.getItem(key);
+    return this._db.then(db => db.getItem(key));
   }
 
   /**
@@ -103,7 +104,7 @@ export class Storage {
    * @return Promise that resolves when the value is set
    */
   set(key: string, value: any) {
-    return this._db.setItem(key, value);
+    return this._db.then(db => db.setItem(key, value));
   }
 
   /**
@@ -112,7 +113,7 @@ export class Storage {
    * @return Promise that resolves when the value is removed
    */
   remove(key: string) {
-    return this._db.removeItem(key);
+    return this._db.then(db => db.removeItem(key));
   }
 
   /**
@@ -120,21 +121,21 @@ export class Storage {
    * @return Promise that resolves when the kv store is cleared
    */
   clear() {
-    return this._db.clear();
+    return this._db.then(db => db.clear());
   }
 
   /**
    * @return the number of keys stored.
    */
   length() {
-    return this._db.length();
+    return this._db.then(db => db.length());
   }
 
   /**
    * @return the keys in the store.
    */
   keys() {
-    return this._db.keys();
+    return this._db.then(db => db.keys());
   }
 
   /**
@@ -142,7 +143,7 @@ export class Storage {
    * @param iteratorCallback a callback of the form (value, key, iterationNumber)
    */
   forEach(iteratorCallback: (value: any, key: string, iterationNumber: Number) => any) {
-    return this._db.iterate(iteratorCallback);
+    return this._db.then(db => db.iterate(iteratorCallback));
   }
 
 }
