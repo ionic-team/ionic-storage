@@ -85,7 +85,7 @@ export class Storage {
         LocalForage.WEBSQL,
         LocalForage.LOCALSTORAGE
       ])).then(() => {
-        console.info('Ionic Storage driver:', LocalForage.driver());
+        console.info('Ionic Storage driver:', db.driver());
         resolve(db);
       }).catch(reason => reject(reason));
     });
