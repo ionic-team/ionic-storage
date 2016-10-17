@@ -145,4 +145,12 @@ export class Storage {
     return this._db.iterate(iteratorCallback);
   }
 
+  /**
+   * Set storage engine
+   * @param engine engine allows you to specify a specific storage engine to use.
+   */
+  setDriver(engine: string) {
+    this._db.setDriver(this._db.engine);
+  }
+
 }
