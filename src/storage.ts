@@ -113,7 +113,7 @@ export class Storage {
    * Set storage engine
    * @param engine engine allows you to specify a specific storage engine to use.
    */
-  setEngine(engine: string) {
+  setDriver(engine: string) {
     this._db.setDriver(this._db.engine);
   }
 
