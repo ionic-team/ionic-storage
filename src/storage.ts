@@ -33,24 +33,24 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * Next, add it to the providers list in your `NgModule` declaration (for example, in `src/app.module.ts`):
  *
  * ```typescript
-  import { Storage } from '@ionic/storage';
-
-  @NgModule({
-    declarations: [
-      // ...
-    ],
-    imports: [
-      IonicModule.forRoot(MyApp)
-    ],
-    bootstrap: [IonicApp],
-    entryComponents: [
-      // ...
-    ],
-    providers: [
-      Storage
-    ]
-  })
-  export class AppModule {}
+ * import { Storage } from '@ionic/storage';
+ *
+ * @NgModule({
+ *   declarations: [
+ *     // ...
+ *   ],
+ *   imports: [
+ *     IonicModule.forRoot(MyApp)
+ *   ],
+ *   bootstrap: [IonicApp],
+ *   entryComponents: [
+ *     // ...
+ *   ],
+ *   providers: [
+ *     Storage
+ *   ]
+ * })
+ * export class AppModule {}
  *```
  *
  * Finally, inject it into any of your components or pages:
