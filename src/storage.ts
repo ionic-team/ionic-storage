@@ -153,4 +153,12 @@ export class Storage {
     this._db.setDriver(engine);
   }
 
+  /**
+   * Detect whether or not a storage engine is supported on the platform its running on
+   * @param engine engine you want to test support for
+   */
+  supports(engine: string) {
+    this._db.supports(engine);
+  }
+
 }
