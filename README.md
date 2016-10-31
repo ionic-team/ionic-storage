@@ -85,6 +85,14 @@ this.storage.get('name').then((name) => {
 });
 ```
 
+To create a new database instance:
+
+```javascript
+let instance = this.storage.createInstance('instance-name');
+instance.set('name', 'val');
+instance.get('name').then((name) => { console.log(name); });
+```
+
 ### Development and release
 
 When you're ready to release a new version, run the following commands:

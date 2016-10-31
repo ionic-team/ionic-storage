@@ -161,4 +161,12 @@ export class Storage {
     this._db.supports(engine);
   }
 
+  /**
+   * Create new db instance
+   * @param name instance name to be created
+   */
+  createInstance(name: string) {
+    return this._db.createInstance({name});
+  }
+
 }
