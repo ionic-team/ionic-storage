@@ -141,7 +141,7 @@ export class Storage {
    * Iterate through each key,value pair.
    * @param iteratorCallback a callback of the form (value, key, iterationNumber)
    */
-  forEach(iteratorCallback: (value: any, key: string, iterationNumber: Number) => any) {
+  forEach(iteratorCallback: (value: any, key: string, iterationNumber: Number) => any): Promise<null>{
     return this._db.iterate(iteratorCallback);
   }
 
