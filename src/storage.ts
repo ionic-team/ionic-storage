@@ -106,7 +106,7 @@ export class Storage {
    * @param value the value for this key
    * @return Promise that resolves when the value is set
    */
-  set(key: string, value: any) {
+  set(key: string, value: any): Promise<any> {
     return this._db.setItem(key, value);
   }
 
@@ -115,7 +115,7 @@ export class Storage {
    * @param key the key to identify this value
    * @return Promise that resolves when the value is removed
    */
-  remove(key: string) {
+  remove(key: string): Promise<null> {
     return this._db.removeItem(key);
   }
 
@@ -123,21 +123,21 @@ export class Storage {
    * Clear the entire key value store. WARNING: HOT!
    * @return Promise that resolves when the kv store is cleared
    */
-  clear() {
+  clear() : Promise<null> {
     return this._db.clear();
   }
 
   /**
    * @return the number of keys stored.
    */
-  length() {
+  length(): Promise<number> {
     return this._db.length();
   }
 
   /**
    * @return the keys in the store.
    */
-  keys() {
+  keys(): Promise<string[]> {
     return this._db.keys();
   }
 
@@ -145,7 +145,7 @@ export class Storage {
    * Iterate through each key,value pair.
    * @param iteratorCallback a callback of the form (value, key, iterationNumber)
    */
-  forEach(iteratorCallback: (value: any, key: string, iterationNumber: Number) => any) {
+  forEach(iteratorCallback: (value: any, key: string, iterationNumber: Number) => any): Promise<null>{
     return this._db.iterate(iteratorCallback);
   }
 
