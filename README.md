@@ -85,6 +85,8 @@ this.storage.get('name').then((name) => {
 });
 ```
 
+To remove the item, use `Storage.remove(key).then(() => { })`
+
 ### Development and release
 
 When you're ready to release a new version, run the following commands:
