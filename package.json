@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@types/node": "^6.0.41",
+    "canonical-path": "0.0.2",
     "cpr": "^2.0.0",
     "dgeni": "^0.4.2",
     "dgeni-packages": "^0.16.0",
