@@ -88,7 +88,7 @@ export class Storage {
       this._db.WEBSQL,
       this._db.LOCALSTORAGE
     ])).then(() => {
-      console.info('Ionic Storage driver:', this._db.driver());
+      // console.info('Ionic Storage driver:', this._db.driver());
     });
   }
 
