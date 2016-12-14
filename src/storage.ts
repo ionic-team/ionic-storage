@@ -73,22 +73,27 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  */
 @Injectable()
 export class Storage {
-  _db: any;
+  private _dbPromise: Promise<LocalForage>;
 
   constructor() {
-    this._db = LocalForage;
+    this._dbPromise = new Promise((resolve, reject) => {
+      let db: LocalForage;
 
-    this._db.config({
-      name        : '_ionicstorage',
-      storeName   : '_ionickv'
-    });
-    this._db.defineDriver(CordovaSQLiteDriver).then(() => this._db.setDriver([
-      CordovaSQLiteDriver._driver,
-      this._db.INDEXEDDB,
-      this._db.WEBSQL,
-      this._db.LOCALSTORAGE
-    ])).then(() => {
-      console.info('Ionic Storage driver:', this._db.driver());
+      LocalForage.defineDriver(CordovaSQLiteDriver).then(() => {
+        db = LocalForage.createInstance({
+          name        : '_ionicstorage',
+          storeName   : '_ionickv'
+        })
+      }).then(() => db.setDriver([
+        CordovaSQLiteDriver._driver,
+        LocalForage.INDEXEDDB,
+        LocalForage.WEBSQL,
+        LocalForage.LOCALSTORAGE
+      ])).then(() => {
+        console.info('Ionic Storage driver:', db.driver());
+        resolve(db);
+      }).catch(reason => reject(reason));
+
     });
   }
 
@@ -97,7 +102,7 @@ export class Storage {
    * @return Promise that resolves with the value
    */
   get(key: string): Promise<any> {
-    return this._db.getItem(key);
+    return this._dbPromise.then(db => db.getItem(key));
   }
 
   /**
@@ -107,7 +112,7 @@ export class Storage {
    * @return Promise that resolves when the value is set
    */
   set(key: string, value: any): Promise<any> {
-    return this._db.setItem(key, value);
+    return this._dbPromise.then(db => db.setItem(key, value));
   }
 
   /**
@@ -115,54 +120,37 @@ export class Storage {
    * @param key the key to identify this value
    * @return Promise that resolves when the value is removed
    */
-  remove(key: string): Promise<null> {
-    return this._db.removeItem(key);
+  remove(key: string): Promise<any> {
+    return this._dbPromise.then(db => db.removeItem(key));
   }
 
   /**
    * Clear the entire key value store. WARNING: HOT!
    * @return Promise that resolves when the kv store is cleared
    */
-  clear() : Promise<null> {
-    return this._db.clear();
+  clear(): Promise<null> {
+    return this._dbPromise.then(db => db.clear());
   }
 
   /**
    * @return the number of keys stored.
    */
   length(): Promise<number> {
-    return this._db.length();
+    return this._dbPromise.then(db => db.length());
   }
 
   /**
    * @return the keys in the store.
    */
   keys(): Promise<string[]> {
-    return this._db.keys();
+    return this._dbPromise.then(db => db.keys());
   }
 
   /**
    * Iterate through each key,value pair.
    * @param iteratorCallback a callback of the form (value, key, iterationNumber)
    */
-  forEach(iteratorCallback: (value: any, key: string, iterationNumber: Number) => any): Promise<null>{
-    return this._db.iterate(iteratorCallback);
+  forEach(iteratorCallback: (value: any, key: string, iterationNumber: Number) => any): Promise<null> {
+    return this._dbPromise.then(db => db.iterate(iteratorCallback));
   }
-
-  /**
-   * Set storage engine
-   * @param engine engine allows you to specify a specific storage engine to use.
-   */
-  setDriver(engine: string) {
-    this._db.setDriver(engine);
-  }
-
-  /**
-   * Detect whether or not a storage engine is supported on the platform its running on
-   * @param engine engine you want to test support for
-   */
-  supports(engine: string) {
-    this._db.supports(engine);
-  }
-
 }
