@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/driftyco/ionic-storage.svg?style=shield)](https://circleci.com/gh/driftyco/ionic-storage) 
+[![Circle CI](https://circleci.com/gh/driftyco/ionic-storage.svg?style=shield)](https://circleci.com/gh/driftyco/ionic-storage)
 
 # Ionic Storage
 A simple key-value Storage module for Ionic apps based on LocalForage, with out-of-the-box support for SQLite. This utility makes it easy to use the best storage engine available without having to interact with it directly. Currently the ordering is SQLite, IndexedDB, WebSQL, and LocalStorage.
@@ -86,6 +86,32 @@ this.storage.get('name').then((name) => {
 ```
 
 To remove the item, use `Storage.remove(key).then(() => { })`
+
+### Configuring Storage (new in 1.1.7)
+
+The Storage engine can be configured both with specific storage engine priorities, or custom configuration
+options to pass to localForage. See the localForage config docs for possible options: https://github.com/localForage/localForage#configuration
+
+
+```typescript
+import { Storage } from '@ionic/storage';
+
+export function provideStorage() {
+ return new Storage(['sqlite', 'websql', 'indexeddb'], { name: '__mydb' }// optional config);
+}
+
+@NgModule({
+ declarations: ...,
+ imports: ...,
+ bootstrap: ...,
+ entryComponents: ...,
+  providers: [
+    { provide: Storage, useFactory: provideStorage }
+  ]
+})
+export class AppModule {}
+```
+
 
 ### Development and release
 

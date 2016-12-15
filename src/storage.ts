@@ -77,6 +77,7 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * options to pass to localForage. See the localForage config docs for possible options: https://github.com/localForage/localForage#configuration
  *
  *
+ * ```typescript
  * import { Storage } from '@ionic/storage';
  *
  * export function provideStorage() {
@@ -93,6 +94,7 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  *    ]
  * })
  * export class AppModule {}
+ * ```
  */
 @Injectable()
 export class Storage {
