@@ -70,30 +70,85 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  *   }
  * }
  * ```
+ *
+ * ### Configuring Storage
+ *
+ * The Storage engine can be configured both with specific storage engine priorities, or custom configuration
+ * options to pass to localForage. See the localForage config docs for possible options: https://github.com/localForage/localForage#configuration
+ *
+ *
+ * import { Storage } from '@ionic/storage';
+ *
+ * export function provideStorage() {
+ *   return new Storage(['sqlite', 'websql', 'indexeddb'], { name: '__mydb' }// optional config);
+ * }
+ *
+ * @NgModule({
+ *   declarations: ...,
+ *   imports: ...,
+ *   bootstrap: ...,
+ *   entryComponents: ...,
+ *    providers: [
+ *      { provide: Storage, useFactory: provideStorage }
+ *    ]
+ * })
+ * export class AppModule {}
  */
 @Injectable()
 export class Storage {
   private _dbPromise: Promise<LocalForage>;
 
-  constructor() {
+  /**
+   * Create a new Storage instance using the order of drivers and any additional config
+   * options to pass to LocalForage.
+   *
+   * Possible driver options are: ['sqlite', 'indexeddb', 'websql', 'localstorage'] and the
+   * default is that exact ordering.
+   */
+  constructor(driverOrder: [string] = ['sqlite', 'indexeddb', 'websql', 'localstorage'], config?: any) {
     this._dbPromise = new Promise((resolve, reject) => {
       let db: LocalForage;
 
+      let dbConfig = {
+        name        : '_ionicstorage',
+        storeName   : '_ionickv'
+      };
+
+      // Merge any custom config options they have
+      if(config) {
+        for(let k in config) {
+          dbConfig[k] = config[k];
+        }
+      }
+
       LocalForage.defineDriver(CordovaSQLiteDriver).then(() => {
-        db = LocalForage.createInstance({
-          name        : '_ionicstorage',
-          storeName   : '_ionickv'
-        })
-      }).then(() => db.setDriver([
-        CordovaSQLiteDriver._driver,
-        LocalForage.INDEXEDDB,
-        LocalForage.WEBSQL,
-        LocalForage.LOCALSTORAGE
-      ])).then(() => {
+        db = LocalForage.createInstance(dbConfig);
+      })
+      .then(() => db.setDriver(this._getDriverOrder(driverOrder)))
+      .then(() => {
         console.info('Ionic Storage driver:', db.driver());
         resolve(db);
-      }).catch(reason => reject(reason));
+      })
+      .catch(reason => reject(reason));
+    });
+  }
 
+  ready() {
+    return this._dbPromise;
+  }
+
+  _getDriverOrder(driverOrder) {
+    return driverOrder.map((driver) => {
+      switch(driver) {
+        case 'sqlite':
+          return CordovaSQLiteDriver._driver;
+        case 'indexeddb':
+          return LocalForage.INDEXEDDB;
+        case 'websql':
+          return LocalForage.WEBSQL;
+        case 'localstorage':
+          return LocalForage.LOCALSTORAGE;
+      }
     });
   }
 
