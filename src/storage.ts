@@ -144,6 +144,10 @@ export class Storage {
     return this._driver;
   }
 
+  /**
+   * Reflect the readiness of the store.
+   * @return Promise that resolves when the store is ready
+   */
   ready() {
     return this._dbPromise;
   }
@@ -193,21 +197,21 @@ export class Storage {
 
   /**
    * Clear the entire key value store. WARNING: HOT!
-   * @return Promise that resolves when the kv store is cleared
+   * @return Promise that resolves when the store is cleared
    */
   clear(): Promise<null> {
     return this._dbPromise.then(db => db.clear());
   }
 
   /**
-   * @return the number of keys stored.
+   * @return Promise that resolves with the number of keys stored.
    */
   length(): Promise<number> {
     return this._dbPromise.then(db => db.length());
   }
 
   /**
-   * @return the keys in the store.
+   * @return Promise that resolves with the keys in the store.
    */
   keys(): Promise<string[]> {
     return this._dbPromise.then(db => db.keys());
@@ -216,6 +220,7 @@ export class Storage {
   /**
    * Iterate through each key,value pair.
    * @param iteratorCallback a callback of the form (value, key, iterationNumber)
+   * @return Promise that resolves when the iteration has finished. 
    */
   forEach(iteratorCallback: (value: any, key: string, iterationNumber: Number) => any): Promise<null> {
     return this._dbPromise.then(db => db.iterate(iteratorCallback));
