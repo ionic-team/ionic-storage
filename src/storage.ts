@@ -129,7 +129,6 @@ export class Storage {
       })
       .then(() => db.setDriver(this._getDriverOrder(driverOrder)))
       .then(() => {
-        console.info('Ionic Storage driver:', db.driver());
         this._driver = db.driver();
         resolve(db);
       })
