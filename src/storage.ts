@@ -99,6 +99,7 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 @Injectable()
 export class Storage {
   private _dbPromise: Promise<LocalForage>;
+  private _driver: string = null;
 
   /**
    * Create a new Storage instance using the order of drivers and any additional config
@@ -129,10 +130,19 @@ export class Storage {
       .then(() => db.setDriver(this._getDriverOrder(driverOrder)))
       .then(() => {
         console.info('Ionic Storage driver:', db.driver());
+        this._driver = db.driver();
         resolve(db);
       })
       .catch(reason => reject(reason));
     });
+  }
+
+  /**
+   * Get the name of the driver being used.
+   * @return Name of the driver
+   */
+  get driver() {
+    return this._driver;
   }
 
   ready() {
