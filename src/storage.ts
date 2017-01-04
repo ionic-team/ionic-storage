@@ -156,6 +156,7 @@ export class Storage {
 
   /**
    * Get the value assocated with the given key.
+   * @param key the key to identify this value
    * @return Promise that resolves with the value
    */
   get(key: string): Promise<any> {
