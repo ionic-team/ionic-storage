@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import LocalForage from 'localforage';
+import * as LocalForage from 'localforage';
 
-import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
+import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 
 
 /**
