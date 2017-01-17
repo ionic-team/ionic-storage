@@ -97,7 +97,7 @@ options to pass to localForage. See the localForage config docs for possible opt
 import { Storage } from '@ionic/storage';
 
 export function provideStorage() {
- return new Storage(['sqlite', 'websql', 'indexeddb'], { name: '__mydb' }// optional config);
+ return new Storage(['sqlite', 'websql', 'indexeddb'], { name: '__mydb' } /* optional config */);
 }
 
 @NgModule({
