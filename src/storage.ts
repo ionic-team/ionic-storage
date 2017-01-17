@@ -99,6 +99,7 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 @Injectable()
 export class Storage {
   private _dbPromise: Promise<LocalForage>;
+  private _driver: string = null;
 
   /**
    * Create a new Storage instance using the order of drivers and any additional config
@@ -128,13 +129,25 @@ export class Storage {
       })
       .then(() => db.setDriver(this._getDriverOrder(driverOrder)))
       .then(() => {
-        console.info('Ionic Storage driver:', db.driver());
+        this._driver = db.driver();
         resolve(db);
       })
       .catch(reason => reject(reason));
     });
   }
 
+  /**
+   * Get the name of the driver being used.
+   * @return Name of the driver
+   */
+  get driver() {
+    return this._driver;
+  }
+
+  /**
+   * Reflect the readiness of the store.
+   * @return Promise that resolves when the store is ready
+   */
   ready() {
     return this._dbPromise;
   }
@@ -155,7 +168,8 @@ export class Storage {
   }
 
   /**
-   * Get the value assocated with the given key.
+   * Get the value associated with the given key.
+   * @param key the key to identify this value
    * @return Promise that resolves with the value
    */
   get(key: string): Promise<any> {
@@ -183,21 +197,21 @@ export class Storage {
 
   /**
    * Clear the entire key value store. WARNING: HOT!
-   * @return Promise that resolves when the kv store is cleared
+   * @return Promise that resolves when the store is cleared
    */
   clear(): Promise<null> {
     return this._dbPromise.then(db => db.clear());
   }
 
   /**
-   * @return the number of keys stored.
+   * @return Promise that resolves with the number of keys stored.
    */
   length(): Promise<number> {
     return this._dbPromise.then(db => db.length());
   }
 
   /**
-   * @return the keys in the store.
+   * @return Promise that resolves with the keys in the store.
    */
   keys(): Promise<string[]> {
     return this._dbPromise.then(db => db.keys());
@@ -206,6 +220,7 @@ export class Storage {
   /**
    * Iterate through each key,value pair.
    * @param iteratorCallback a callback of the form (value, key, iterationNumber)
+   * @return Promise that resolves when the iteration has finished. 
    */
   forEach(iteratorCallback: (value: any, key: string, iterationNumber: Number) => any): Promise<null> {
     return this._dbPromise.then(db => db.iterate(iteratorCallback));
