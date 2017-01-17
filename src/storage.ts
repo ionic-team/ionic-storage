@@ -81,7 +81,7 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * import { Storage } from '@ionic/storage';
  *
  * export function provideStorage() {
- *   return new Storage(['sqlite', 'websql', 'indexeddb'], { name: '__mydb' } /* optional config */);
+ *   return new Storage(['sqlite', 'websql', 'indexeddb'], { name: '__mydb' });
  * }
  *
  * @NgModule({
@@ -220,7 +220,7 @@ export class Storage {
   /**
    * Iterate through each key,value pair.
    * @param iteratorCallback a callback of the form (value, key, iterationNumber)
-   * @return Promise that resolves when the iteration has finished. 
+   * @return Promise that resolves when the iteration has finished.
    */
   forEach(iteratorCallback: (value: any, key: string, iterationNumber: Number) => any): Promise<null> {
     return this._dbPromise.then(db => db.iterate(iteratorCallback));
