@@ -64,10 +64,21 @@ import { Storage } from '@ionic/storage';
 export class HomePage {
 
   constructor(public navCtrl: NavController, public storage: Storage) {
-
+    storage.ready().then(() => {
+      // Storage is ready to use
+      // Note: ready() is only available in 1.1.7 or greater!
+    });
   }
 
 }
+```
+
+To make sure the storage system is ready before using, call `Storage.ready()`. You must be
+on 1.1.7 or greater to use the `ready()` method.
+
+```javascript
+storage.ready().then(() => {
+});
 ```
 
 To set an item, use `Storage.set(key, value)`:

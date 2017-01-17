@@ -60,13 +60,16 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * export class MyApp {
  *   constructor(storage: Storage) {
  *
- *      // set a key/value
- *      storage.set('name', 'Max');
+ *      storage.ready().then(() => {
  *
- *      // Or to get a key/value pair
- *      storage.get('name').then((val) => {
- *        console.log('Your name is', val);
- *      })
+ *        // set a key/value
+ *        storage.set('name', 'Max');
+ *
+ *        // Or to get a key/value pair
+ *        storage.get('name').then((val) => {
+ *          console.log('Your name is', val);
+ *        })
+ *      });
  *   }
  * }
  * ```
