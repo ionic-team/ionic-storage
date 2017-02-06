@@ -31,13 +31,12 @@
   },
   "homepage": "https://github.com/driftyco/ionic-storage#readme",
   "dependencies": {
-    "@angular/core": "^2.0.0",
     "@types/localforage": "0.0.30",
     "localforage": "~1.4.2",
-    "localforage-cordovasqlitedriver": "~1.5.0",
-    "rxjs": "5.0.0-beta.12"
+    "localforage-cordovasqlitedriver": "~1.5.0"
   },
   "devDependencies": {
+    "@angular/core": "^2.0.0",
     "@types/node": "^6.0.41",
     "canonical-path": "0.0.2",
     "cpr": "^2.0.0",
@@ -45,8 +44,13 @@
     "dgeni-packages": "^0.16.0",
     "gulp": "^3.9.1",
     "semver": "^5.3.0",
+    "rxjs": "5.0.0-beta.12",
     "tslint": "^3.10.2",
     "tslint-ionic-rules": "*",
     "typescript": "^2.0.3"
+  },
+  "peerDependencies": {
+    "@angular/core": "*",
+    "rxjs": "*"
   }
 }
