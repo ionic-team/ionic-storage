@@ -66,8 +66,8 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  *        storage.set('name', 'Max');
  *
  *        // Or to get a key/value pair
- *        storage.get('name').then((val) => {
- *          console.log('Your name is', val);
+ *        storage.get('age').then((val) => {
+ *          console.log('Your age is', val);
  *        })
  *      });
  *   }
