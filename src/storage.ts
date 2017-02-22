@@ -1,4 +1,4 @@
-import { Injectable, Optional } from '@angular/core';
+import { Injectable, OpaqueToken, Optional } from '@angular/core';
 
 import LocalForage from 'localforage';
 
@@ -112,7 +112,7 @@ export class Storage {
    * Possible driver options are: ['sqlite', 'indexeddb', 'websql', 'localstorage'] and the
    * default is that exact ordering.
    */
-  constructor(@Optional() config?: StorageConfig) {
+  constructor(@Optional() config?: any) {
     this._dbPromise = new Promise((resolve, reject) => {
       let db: LocalForage;
 
@@ -235,3 +235,10 @@ export interface StorageConfig {
     storeName?: string;
     driverOrder?: string[];
 };
+
+export function provideStorage(storageConfig?: StorageConfig) {
+  const config = !!storageConfig ? storageConfig : getDefaultConfig();
+  return new Storage(config);
+}
+
+export const StorageConfigToken = new OpaqueToken('STORAGE_CONFIG_TOKEN');
