@@ -37,9 +37,9 @@
     "localforage-cordovasqlitedriver": "~1.5.0"
   },
   "devDependencies": {
-    "@angular/core": "2.4.5",
-    "@angular/compiler": "2.4.5",
-    "@angular/compiler-cli": "2.4.5",
+    "@angular/core": "2.4.8",
+    "@angular/compiler": "2.4.8",
+    "@angular/compiler-cli": "2.4.8",
     "@types/node": "^6.0.41",
     "canonical-path": "0.0.2",
     "cpr": "^2.0.0",
