@@ -1,3 +1,1 @@
-import { Storage } from './storage';
-
-export { Storage };
+export { Storage } from './storage';
