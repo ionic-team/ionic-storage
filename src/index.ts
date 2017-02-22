@@ -1,3 +1,3 @@
-import { Storage } from './storage';
+import { Storage, StorageConfig } from './storage';
 
-export { Storage };
+export { Storage, StorageConfig };
