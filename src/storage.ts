@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OpaqueToken, Optional } from '@angular/core';
 
 import LocalForage from 'localforage';
 
@@ -79,12 +79,13 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * The Storage engine can be configured both with specific storage engine priorities, or custom configuration
  * options to pass to localForage. See the localForage config docs for possible options: https://github.com/localForage/localForage#configuration
  *
+ * Note: Any custom configurations will be merged with the default configuration
  *
  * ```typescript
  * import { Storage } from '@ionic/storage';
  *
  * export function provideStorage() {
- *   return new Storage(['sqlite', 'websql', 'indexeddb'], { name: '__mydb' });
+ *   return new Storage({ name: '__mydb' });
  * }
  *
  * @NgModule({
@@ -111,26 +112,17 @@ export class Storage {
    * Possible driver options are: ['sqlite', 'indexeddb', 'websql', 'localstorage'] and the
    * default is that exact ordering.
    */
-  constructor(driverOrder: [string] = ['sqlite', 'indexeddb', 'websql', 'localstorage'], config?: any) {
+  constructor(@Optional() config?: any) {
     this._dbPromise = new Promise((resolve, reject) => {
       let db: LocalForage;
 
-      let dbConfig = {
-        name        : '_ionicstorage',
-        storeName   : '_ionickv'
-      };
-
-      // Merge any custom config options they have
-      if(config) {
-        for(let k in config) {
-          dbConfig[k] = config[k];
-        }
-      }
+      const defaultConfig = getDefaultConfig();
+      const actualConfig = Object.assign(defaultConfig, config || {});
 
       LocalForage.defineDriver(CordovaSQLiteDriver).then(() => {
-        db = LocalForage.createInstance(dbConfig);
+        db = LocalForage.createInstance(actualConfig);
       })
-      .then(() => db.setDriver(this._getDriverOrder(driverOrder)))
+      .then(() => db.setDriver(this._getDriverOrder(actualConfig.driverOrder)))
       .then(() => {
         this._driver = db.driver();
         resolve(db);
@@ -229,3 +221,24 @@ export class Storage {
     return this._dbPromise.then(db => db.iterate(iteratorCallback));
   }
 }
+
+export function getDefaultConfig() {
+  return {
+    name        : '_ionicstorage',
+    storeName   : '_ionickv',
+    driverOrder: ['sqlite', 'indexeddb', 'websql', 'localstorage']
+  };
+}
+
+export interface StorageConfig {
+    name?: string;
+    storeName?: string;
+    driverOrder?: string[];
+};
+
+export function provideStorage(storageConfig?: StorageConfig) {
+  const config = !!storageConfig ? storageConfig : getDefaultConfig();
+  return new Storage(config);
+}
+
+export const StorageConfigToken = new OpaqueToken('STORAGE_CONFIG_TOKEN');
