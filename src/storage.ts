@@ -1,4 +1,4 @@
-import { Injectable, OpaqueToken, Optional } from '@angular/core';
+import { Injectable, InjectionToken, Optional } from '@angular/core';
 
 import LocalForage from 'localforage';
 
@@ -100,7 +100,6 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * export class AppModule {}
  * ```
  */
-@Injectable()
 export class Storage {
   private _dbPromise: Promise<LocalForage>;
   private _driver: string = null;
@@ -112,7 +111,7 @@ export class Storage {
    * Possible driver options are: ['sqlite', 'indexeddb', 'websql', 'localstorage'] and the
    * default is that exact ordering.
    */
-  constructor(@Optional() config?: any) {
+  constructor(config: StorageConfig) {
     this._dbPromise = new Promise((resolve, reject) => {
       let db: LocalForage;
 
@@ -236,9 +235,8 @@ export interface StorageConfig {
     driverOrder?: string[];
 };
 
-export function provideStorage(storageConfig?: StorageConfig) {
-  const config = !!storageConfig ? storageConfig : getDefaultConfig();
-  return new Storage(config);
+export function provideStorage(storageConfig: StorageConfig) {
+  return new Storage(storageConfig);
 }
 
-export const StorageConfigToken = new OpaqueToken('STORAGE_CONFIG_TOKEN');
+export const StorageConfigToken = new InjectionToken<StorageConfig>('STORAGE_CONFIG_TOKEN');
