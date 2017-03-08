@@ -30,25 +30,24 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * npm install --save @ionic/storage
  * ```
  *
- * Next, add it to the providers list in your `NgModule` declaration (for example, in `src/app.module.ts`):
+ * Next, add it to the imports list in your `NgModule` declaration (for example, in `src/app.module.ts`):
  *
  * ```typescript
- * import { Storage } from '@ionic/storage';
+ * import { IonicStorageModule } from '@ionic/storage';
  *
  * @NgModule({
  *   declarations: [
  *     // ...
  *   ],
  *   imports: [
- *     IonicModule.forRoot(MyApp)
+ *     IonicModule.forRoot(MyApp),
+ *     IonicStorageModule.forRoot()
  *   ],
  *   bootstrap: [IonicApp],
  *   entryComponents: [
  *     // ...
  *   ],
- *   providers: [
- *     Storage
- *   ]
+ *   providers: []
  * })
  * export class AppModule {}
  *```
@@ -82,7 +81,7 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * Note: Any custom configurations will be merged with the default configuration
  *
  * ```typescript
- * import { Storage } from '@ionic/storage';
+ * import { IonicStorageModule } from '@ionic/storage';
  *
  * export function provideStorage() {
  *   return new Storage({ name: '__mydb' });
@@ -90,12 +89,12 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  *
  * @NgModule({
  *   declarations: ...,
- *   imports: ...,
+ *   imports: [
+ *     IonicStorageModule.forRoot({ useFactory: provideStorage })
+ *   ],
  *   bootstrap: ...,
  *   entryComponents: ...,
- *    providers: [
- *      { provide: Storage, useFactory: provideStorage }
- *    ]
+ *    providers: []
  * })
  * export class AppModule {}
  * ```
