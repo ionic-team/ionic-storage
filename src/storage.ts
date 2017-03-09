@@ -114,7 +114,7 @@ export class Storage {
   constructor(config: StorageConfig) {
     this._dbPromise = new Promise((resolve, reject) => {
       let db: LocalForage;
-
+      
       const defaultConfig = getDefaultConfig();
       const actualConfig = Object.assign(defaultConfig, config || {});
 
@@ -235,8 +235,9 @@ export interface StorageConfig {
     driverOrder?: string[];
 };
 
-export function provideStorage(storageConfig: StorageConfig) {
+export const StorageConfigToken = new InjectionToken<StorageConfig>('STORAGE_CONFIG_TOKEN');
+
+export function provideStorage(storageConfig: StorageConfig): Storage {
   return new Storage(storageConfig);
 }
 
-export const StorageConfigToken = new InjectionToken<StorageConfig>('STORAGE_CONFIG_TOKEN');
