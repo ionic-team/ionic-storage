@@ -2,7 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import { getDefaultConfig, provideStorage, Storage, StorageConfig, StorageConfigToken } from './storage';
 
-export { Storage, StorageConfig, StorageConfigToken };
+export { StorageConfig, StorageConfigToken, Storage };
 
 @NgModule({
 })

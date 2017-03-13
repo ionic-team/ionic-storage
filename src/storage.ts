@@ -99,7 +99,6 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * export class AppModule {}
  * ```
  */
-@Injectable()
 export class Storage {
   private _dbPromise: Promise<LocalForage>;
   private _driver: string = null;
@@ -111,10 +110,10 @@ export class Storage {
    * Possible driver options are: ['sqlite', 'indexeddb', 'websql', 'localstorage'] and the
    * default is that exact ordering.
    */
-  constructor(@Optional() config?: any) {
+  constructor(config: StorageConfig) {
     this._dbPromise = new Promise((resolve, reject) => {
       let db: LocalForage;
-
+      
       const defaultConfig = getDefaultConfig();
       const actualConfig = Object.assign(defaultConfig, config || {});
 
@@ -235,9 +234,10 @@ export interface StorageConfig {
     driverOrder?: string[];
 };
 
-export function provideStorage(storageConfig?: StorageConfig) {
+export const StorageConfigToken = new OpaqueToken('STORAGE_CONFIG_TOKEN');
+
+export function provideStorage(storageConfig: StorageConfig): Storage {
   const config = !!storageConfig ? storageConfig : getDefaultConfig();
   return new Storage(config);
 }
 
-export const StorageConfigToken = new OpaqueToken('STORAGE_CONFIG_TOKEN');
