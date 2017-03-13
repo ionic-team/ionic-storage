@@ -1,4 +1,4 @@
-import { Injectable, InjectionToken, Optional } from '@angular/core';
+import { Injectable, OpaqueToken, Optional } from '@angular/core';
 
 import LocalForage from 'localforage';
 
@@ -235,9 +235,10 @@ export interface StorageConfig {
     driverOrder?: string[];
 };
 
-export const StorageConfigToken = new InjectionToken<StorageConfig>('STORAGE_CONFIG_TOKEN');
+export const StorageConfigToken = new OpaqueToken('STORAGE_CONFIG_TOKEN');
 
 export function provideStorage(storageConfig: StorageConfig): Storage {
-  return new Storage(storageConfig);
+  const config = !!storageConfig ? storageConfig : getDefaultConfig();
+  return new Storage(config);
 }
 
