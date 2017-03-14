@@ -27,23 +27,26 @@ cordova plugin add cordova-sqlite-storage --save
 
 
 
-Then edit your NgModule declaration in `src/app/app.module.ts`) to add `Storage` as a provider:
+Then edit your NgModule declaration in `src/app/app.module.ts` to add `IonicStorageModule` as an import:
 
 ```typescript
-import { Storage } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
     ...
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     ...
   ],
-  providers: [ Storage ] // Add Storage as a provider
+  providers: [
+    ...
+  ]
 })
 export class AppModule {}
 ```
@@ -107,18 +110,17 @@ options to pass to localForage. See the localForage config docs for possible opt
 ```typescript
 import { Storage } from '@ionic/storage';
 
-export function provideStorage() {
- return new Storage(['sqlite', 'websql', 'indexeddb'], { name: '__mydb' } /* optional config */);
-}
 
 @NgModule({
  declarations: ...,
- imports: ...,
+ imports: [
+   IonicStorageModule({
+     name: '__mydb',
+     driverOrder: 'indexeddb', 'sqlite', 'websql'
+   })
+ ],
  bootstrap: ...,
  entryComponents: ...,
-  providers: [
-    { provide: Storage, useFactory: provideStorage }
-  ]
 })
 export class AppModule {}
 ```
