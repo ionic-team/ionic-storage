@@ -114,9 +114,9 @@ import { Storage } from '@ionic/storage';
 @NgModule({
  declarations: ...,
  imports: [
-   IonicStorageModule({
+   IonicStorageModule.forRoot({
      name: '__mydb',
-     driverOrder: 'indexeddb', 'sqlite', 'websql'
+     driverOrder: ['indexeddb', 'sqlite', 'websql']
    })
  ],
  bootstrap: ...,
