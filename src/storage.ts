@@ -83,14 +83,13 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * ```typescript
  * import { IonicStorageModule } from '@ionic/storage';
  *
- * export function provideStorage() {
- *   return new Storage({ name: '__mydb' });
- * }
- *
  * @NgModule({
  *   declarations: ...,
  *   imports: [
- *     IonicStorageModule.forRoot({ useFactory: provideStorage })
+ *     IonicStorageModule.forRoot({
+ *       name: '__mydb',
+         driverOrder: 'indexeddb', 'sqlite', 'websql'
+ *     })
  *   ],
  *   bootstrap: ...,
  *   entryComponents: ...,
