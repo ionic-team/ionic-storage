@@ -88,7 +88,7 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  *   imports: [
  *     IonicStorageModule.forRoot({
  *       name: '__mydb',
-         driverOrder: 'indexeddb', 'sqlite', 'websql'
+         driverOrder: ['indexeddb', 'sqlite', 'websql']
  *     })
  *   ],
  *   bootstrap: ...,
@@ -112,7 +112,7 @@ export class Storage {
   constructor(config: StorageConfig) {
     this._dbPromise = new Promise((resolve, reject) => {
       let db: LocalForage;
-      
+
       const defaultConfig = getDefaultConfig();
       const actualConfig = Object.assign(defaultConfig, config || {});
 
