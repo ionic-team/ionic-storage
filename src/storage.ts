@@ -219,6 +219,7 @@ export class Storage {
   }
 }
 
+/** @hidden */
 export function getDefaultConfig() {
   return {
     name        : '_ionicstorage',
@@ -227,14 +228,17 @@ export function getDefaultConfig() {
   };
 }
 
+/** @hidden */
 export interface StorageConfig {
     name?: string;
     storeName?: string;
     driverOrder?: string[];
 };
 
+/** @hidden */
 export const StorageConfigToken = new OpaqueToken('STORAGE_CONFIG_TOKEN');
 
+/** @hidden */
 export function provideStorage(storageConfig: StorageConfig): Storage {
   const config = !!storageConfig ? storageConfig : getDefaultConfig();
   return new Storage(config);
