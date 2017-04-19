@@ -138,7 +138,7 @@ export class Storage {
 
   /**
    * Reflect the readiness of the store.
-   * @return Promise that resolves when the store is ready
+   * @returns {Promise} Returns a promise that resolves when the store is ready
    */
   ready() {
     return this._dbPromise;
@@ -161,8 +161,8 @@ export class Storage {
 
   /**
    * Get the value associated with the given key.
-   * @param key the key to identify this value
-   * @return Promise that resolves with the value
+   * @param {any} key the key to identify this value
+   * @returns {Promise} Returns a promise with the value of the given key
    */
   get(key: string): Promise<any> {
     return this._dbPromise.then(db => db.getItem(key));
@@ -170,9 +170,9 @@ export class Storage {
 
   /**
    * Set the value for the given key.
-   * @param key the key to identify this value
-   * @param value the value for this key
-   * @return Promise that resolves when the value is set
+   * @param {any} key the key to identify this value
+   * @param {any} value the value for this key
+   * @returns {Promise} Returns a promise that resolves when the key and value are set
    */
   set(key: string, value: any): Promise<any> {
     return this._dbPromise.then(db => db.setItem(key, value));
@@ -180,8 +180,8 @@ export class Storage {
 
   /**
    * Remove any value associated with this key.
-   * @param key the key to identify this value
-   * @return Promise that resolves when the value is removed
+   * @param {any} key the key to identify this value
+   * @returns {Promise} Returns a promise that resolves when the value is removed
    */
   remove(key: string): Promise<any> {
     return this._dbPromise.then(db => db.removeItem(key));
@@ -189,21 +189,21 @@ export class Storage {
 
   /**
    * Clear the entire key value store. WARNING: HOT!
-   * @return Promise that resolves when the store is cleared
+   * @returns {Promise} Returns a promise that resolves when the store is cleared
    */
-  clear(): Promise<null> {
+  clear(): Promise<void> {
     return this._dbPromise.then(db => db.clear());
   }
 
   /**
-   * @return Promise that resolves with the number of keys stored.
+   * @returns {Promise} Returns a promise that resolves with the number of keys stored.
    */
   length(): Promise<number> {
     return this._dbPromise.then(db => db.length());
   }
 
   /**
-   * @return Promise that resolves with the keys in the store.
+   * @returns {Promise} Returns a promise that resolves with the keys in the store.
    */
   keys(): Promise<string[]> {
     return this._dbPromise.then(db => db.keys());
@@ -211,14 +211,15 @@ export class Storage {
 
   /**
    * Iterate through each key,value pair.
-   * @param iteratorCallback a callback of the form (value, key, iterationNumber)
-   * @return Promise that resolves when the iteration has finished.
+   * @param {any} iteratorCallback a callback of the form (value, key, iterationNumber)
+   * @returns {Promise} Returns a promise that resolves when the iteration has finished.
    */
-  forEach(iteratorCallback: (value: any, key: string, iterationNumber: Number) => any): Promise<null> {
+  forEach(iteratorCallback: (value: any, key: string, iterationNumber: Number) => any): Promise<void> {
     return this._dbPromise.then(db => db.iterate(iteratorCallback));
   }
 }
 
+/** @hidden */
 export function getDefaultConfig() {
   return {
     name        : '_ionicstorage',
@@ -227,14 +228,17 @@ export function getDefaultConfig() {
   };
 }
 
+/** @hidden */
 export interface StorageConfig {
     name?: string;
     storeName?: string;
     driverOrder?: string[];
 };
 
+/** @hidden */
 export const StorageConfigToken = new OpaqueToken('STORAGE_CONFIG_TOKEN');
 
+/** @hidden */
 export function provideStorage(storageConfig: StorageConfig): Storage {
   const config = !!storageConfig ? storageConfig : getDefaultConfig();
   return new Storage(config);

@@ -1,8 +1,10 @@
 var Package = require('dgeni').Package;
 var jsdocPackage = require('dgeni-packages/jsdoc');
 var nunjucksPackage = require('dgeni-packages/nunjucks');
-var typescriptPackage = require('./typescript-package');
-var linksPackage = require('./links-package');
+var typescriptPackage = require('dgeni-packages/typescript');
+var linksPackage = require('dgeni-packages/links');
+// var typescriptPackage = require('./typescript-package');
+// var linksPackage = require('./links-package');
 var gitPackage = require('dgeni-packages/git');
 var path = require('path');
 var semver = require('semver');
@@ -17,13 +19,14 @@ module.exports = function(currentVersion) {
                      [jsdocPackage, nunjucksPackage, typescriptPackage,
                       linksPackage, gitPackage])
 
-  .processor(require('./processors/latest-version'))
-  // .processor(require('./processors/index-page'))
-  .processor(require('./processors/jekyll'))
+
   .processor(require('./processors/remove-private-members'))
   .processor(require('./processors/hide-private-api'))
   .processor(require('./processors/collect-inputs-outputs'))
   .processor(require('./processors/parse-returns-object'))
+  .processor(require('./processors/latest-version'))
+  // .processor(require('./processors/index-page'))
+  .processor(require('./processors/jekyll'))
 
 // for debugging docs
 // .processor(function test(){

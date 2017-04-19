@@ -1,5 +1,5 @@
 {
   "sitePath": "../ionic-site",
-  "clientDocsDir": "content/docs/v2/storage",
-  "docsDest": "../ionic-site/content/docs/v2/storage"
+  "clientDocsDir": "content/docs/storage",
+  "docsDest": "../ionic-site/content/docs/storage"
 }

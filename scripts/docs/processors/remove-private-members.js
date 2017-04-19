@@ -1,27 +1,21 @@
-var fs = require('fs');
+"use strict";
 module.exports = function removePrivateMembers() {
   return {
     name: 'remove-private-members',
-    description: 'Remove member docs with @private tags or marked private',
+    description: 'Remove member docs with @private tags',
     $runAfter: ['tags-parsed'],
     $runBefore: ['rendering-docs'],
-    $process: function(docs) {
-      docs.forEach(function(doc) {
+    $process: docs => {
+      docs.forEach(doc => {
+
         if (doc.members) {
-          doc.members = doc.members.filter(function(member) {
-            return !member.tags.tagsByName.get('private') &&
-                   !isFileIfPrivate(member.fileInfo.filePath,
-                                   member.location.end.line);
-          });
+          doc.members = doc.members.filter(member => !member.tags.tagsByName.get('hidden'));
         }
 
         if (doc.statics) {
-          doc.statics = doc.statics.filter(function(staticMethod) {
-            return !staticMethod.tags.tagsByName.get('private') &&
-                   !isFileIfPrivate(staticMethod.fileInfo.filePath,
-                                   staticMethod.location.start.line);
-          });
+          doc.statics = doc.statics.filter(staticMethod => !staticMethod.tags.tagsByName.get('hidden'));
         }
+
       });
 
       return docs;
@@ -29,13 +23,3 @@ module.exports = function removePrivateMembers() {
   };
 };
 
-function isFileIfPrivate(filename, lineNo, log) {
-  var data = fs.readFileSync(filename, 'utf8');
-  var lines = data.split('\n');
-
-  if (+lineNo > lines.length) {
-    throw new Error('File end reached without finding line');
-  }
-
-  return lines[+lineNo].indexOf('private ') != -1;
-}
