@@ -135,7 +135,7 @@ export class Storage {
 
   /**
    * Get the name of the driver being used.
-   * @return Name of the driver
+   * @returns {string | null} Name of the driver
    */
   get driver() {
     return this._driver;
@@ -143,7 +143,7 @@ export class Storage {
 
   /**
    * Reflect the readiness of the store.
-   * @returns {Promise} Returns a promise that resolves when the store is ready
+   * @returns {Promise<LocalForage>} Returns a promise that resolves when the store is ready
    */
   ready() {
     return this._dbPromise;
