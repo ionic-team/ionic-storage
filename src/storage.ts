@@ -70,6 +70,14 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * }
  * ```
  *
+ *To make sure the storage system is ready before using, call Storage.ready().
+ *
+ * ```typescript
+ *storage.ready().then(() => {
+ *});
+ * ```
+ *
+ *
  * ### Configuring Storage
  *
  * The Storage engine can be configured both with specific storage engine priorities, or custom configuration
