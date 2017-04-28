@@ -30,7 +30,7 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * npm install --save @ionic/storage
  * ```
  *
- * Next, add it to the imports list in your `NgModule` declaration (for example, in `src/app.module.ts`):
+ * Next, add it to the imports list in your `NgModule` declaration (for example, in `src/app/app.module.ts`):
  *
  * ```typescript
  * import { IonicStorageModule } from '@ionic/storage';
