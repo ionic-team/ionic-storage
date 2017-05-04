@@ -24,7 +24,7 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * cordova plugin add cordova-sqlite-storage --save
  * ```
  *
- * Next, install the package (comes by default for Ionic 2 apps >= RC.0)
+ * Next, install the package:
  *
  * ```bash
  * npm install --save @ionic/storage
@@ -39,7 +39,8 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  *   declarations: [
  *     // ...
  *   ],
- *   imports: [
+ *   imports: [      
+ *     BrowserModule,
  *     IonicModule.forRoot(MyApp),
  *     IonicStorageModule.forRoot()
  *   ],
@@ -47,7 +48,9 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  *   entryComponents: [
  *     // ...
  *   ],
- *   providers: []
+ *   providers: [
+ *     // ...
+ *   ]
  * })
  * export class AppModule {}
  *```
@@ -89,18 +92,18 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * import { IonicStorageModule } from '@ionic/storage';
  *
  * @NgModule({
- *   declarations: ...,
+ *   declarations: [...],
  *   imports: [
  *     IonicStorageModule.forRoot({
  *       name: '__mydb',
          driverOrder: ['indexeddb', 'sqlite', 'websql']
  *     })
  *   ],
- *   bootstrap: ...,
- *   entryComponents: ...,
- *    providers: []
+ *   bootstrap: [...],
+ *   entryComponents: [...],
+ *    providers: [...]
  * })
- * export class AppModule {}
+ * export class AppModule { }
  * ```
  */
 export class Storage {
