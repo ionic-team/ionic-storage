@@ -60,24 +60,25 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * import { Storage } from '@ionic/storage';
 
  * export class MyApp {
- *   constructor(storage: Storage) {
+ *   constructor(private storage: Storage) { }
  *
- *     // set a key/value
- *     storage.set('name', 'Max');
+ *   ...
  *
- *     // Or to get a key/value pair
- *     storage.get('age').then((val) => {
- *       console.log('Your age is', val);
- *     });
- *   }
+ *   // set a key/value
+ *   storage.set('name', 'Max');
+ *
+ *   // Or to get a key/value pair
+ *   storage.get('age').then((val) => {
+ *     console.log('Your age is', val);
+ *   });
  * }
  * ```
  *
  *To make sure the storage system is ready before using, call Storage.ready().
  *
  * ```typescript
- *storage.ready().then(() => {
- *});
+ *  storage.ready().then(() => {
+ *  });
  * ```
  *
  *
