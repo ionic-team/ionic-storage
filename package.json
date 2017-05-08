@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/driftyco/ionic-storage#readme",
   "dependencies": {
-    "@types/localforage": "0.0.30",
+    "@types/localforage": "0.0.34",
     "localforage": "~1.5.0",
     "localforage-cordovasqlitedriver": "~1.6.0"
   },
