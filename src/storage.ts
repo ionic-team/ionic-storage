@@ -24,13 +24,12 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * cordova plugin add cordova-sqlite-storage --save
  * ```
  *
- * Next, install the package (comes by default for Ionic 2 apps >= RC.0)
- *
+ * Next, install the package (comes by default for Ionic apps > Ionic V1):
  * ```bash
  * npm install --save @ionic/storage
  * ```
  *
- * Next, add it to the imports list in your `NgModule` declaration (for example, in `src/app.module.ts`):
+ * Next, add it to the imports list in your `NgModule` declaration (for example, in `src/app/app.module.ts`):
  *
  * ```typescript
  * import { IonicStorageModule } from '@ionic/storage';
@@ -39,7 +38,8 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  *   declarations: [
  *     // ...
  *   ],
- *   imports: [
+ *   imports: [      
+ *     BrowserModule,
  *     IonicModule.forRoot(MyApp),
  *     IonicStorageModule.forRoot()
  *   ],
@@ -47,7 +47,9 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  *   entryComponents: [
  *     // ...
  *   ],
- *   providers: []
+ *   providers: [
+ *     // ...
+ *   ]
  * })
  * export class AppModule {}
  *```
@@ -57,21 +59,20 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * import { Storage } from '@ionic/storage';
 
  * export class MyApp {
- *   constructor(storage: Storage) {
+ *   constructor(private storage: Storage) { }
  *
- *      storage.ready().then(() => {
+ *   ...
  *
- *        // set a key/value
- *        storage.set('name', 'Max');
+ *   // set a key/value
+ *   storage.set('name', 'Max');
  *
- *        // Or to get a key/value pair
- *        storage.get('age').then((val) => {
- *          console.log('Your age is', val);
- *        })
- *      });
- *   }
+ *   // Or to get a key/value pair
+ *   storage.get('age').then((val) => {
+ *     console.log('Your age is', val);
+ *   });
  * }
  * ```
+ *
  *
  * ### Configuring Storage
  *
@@ -84,18 +85,18 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * import { IonicStorageModule } from '@ionic/storage';
  *
  * @NgModule({
- *   declarations: ...,
+ *   declarations: [...],
  *   imports: [
  *     IonicStorageModule.forRoot({
  *       name: '__mydb',
          driverOrder: ['indexeddb', 'sqlite', 'websql']
  *     })
  *   ],
- *   bootstrap: ...,
- *   entryComponents: ...,
- *    providers: []
+ *   bootstrap: [...],
+ *   entryComponents: [...],
+ *    providers: [...]
  * })
- * export class AppModule {}
+ * export class AppModule { }
  * ```
  */
 export class Storage {
@@ -119,18 +120,18 @@ export class Storage {
       LocalForage.defineDriver(CordovaSQLiteDriver).then(() => {
         db = LocalForage.createInstance(actualConfig);
       })
-      .then(() => db.setDriver(this._getDriverOrder(actualConfig.driverOrder)))
-      .then(() => {
-        this._driver = db.driver();
-        resolve(db);
-      })
-      .catch(reason => reject(reason));
+        .then(() => db.setDriver(this._getDriverOrder(actualConfig.driverOrder)))
+        .then(() => {
+          this._driver = db.driver();
+          resolve(db);
+        })
+        .catch(reason => reject(reason));
     });
   }
 
   /**
    * Get the name of the driver being used.
-   * @return Name of the driver
+   * @returns {string | null} Name of the driver
    */
   get driver() {
     return this._driver;
@@ -138,7 +139,7 @@ export class Storage {
 
   /**
    * Reflect the readiness of the store.
-   * @returns {Promise} Returns a promise that resolves when the store is ready
+   * @returns {Promise<LocalForage>} Returns a promise that resolves when the store is ready
    */
   ready() {
     return this._dbPromise;
@@ -146,7 +147,7 @@ export class Storage {
 
   _getDriverOrder(driverOrder) {
     return driverOrder.map((driver) => {
-      switch(driver) {
+      switch (driver) {
         case 'sqlite':
           return CordovaSQLiteDriver._driver;
         case 'indexeddb':
@@ -222,17 +223,17 @@ export class Storage {
 /** @hidden */
 export function getDefaultConfig() {
   return {
-    name        : '_ionicstorage',
-    storeName   : '_ionickv',
+    name: '_ionicstorage',
+    storeName: '_ionickv',
     driverOrder: ['sqlite', 'indexeddb', 'websql', 'localstorage']
   };
 }
 
 /** @hidden */
 export interface StorageConfig {
-    name?: string;
-    storeName?: string;
-    driverOrder?: string[];
+  name?: string;
+  storeName?: string;
+  driverOrder?: string[];
 };
 
 /** @hidden */
@@ -243,4 +244,3 @@ export function provideStorage(storageConfig: StorageConfig): Storage {
   const config = !!storageConfig ? storageConfig : getDefaultConfig();
   return new Storage(config);
 }
-
