@@ -25,7 +25,6 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * ```
  *
  * Next, install the package (comes by default for Ionic apps > Ionic V1):
- *
  * ```bash
  * npm install --save @ionic/storage
  * ```
@@ -72,13 +71,6 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  *     console.log('Your age is', val);
  *   });
  * }
- * ```
- *
- *To make sure the storage system is ready before using, call Storage.ready().
- *
- * ```typescript
- *  storage.ready().then(() => {
- *  });
  * ```
  *
  *
@@ -128,12 +120,12 @@ export class Storage {
       LocalForage.defineDriver(CordovaSQLiteDriver).then(() => {
         db = LocalForage.createInstance(actualConfig);
       })
-      .then(() => db.setDriver(this._getDriverOrder(actualConfig.driverOrder)))
-      .then(() => {
-        this._driver = db.driver();
-        resolve(db);
-      })
-      .catch(reason => reject(reason));
+        .then(() => db.setDriver(this._getDriverOrder(actualConfig.driverOrder)))
+        .then(() => {
+          this._driver = db.driver();
+          resolve(db);
+        })
+        .catch(reason => reject(reason));
     });
   }
 
@@ -155,7 +147,7 @@ export class Storage {
 
   _getDriverOrder(driverOrder) {
     return driverOrder.map((driver) => {
-      switch(driver) {
+      switch (driver) {
         case 'sqlite':
           return CordovaSQLiteDriver._driver;
         case 'indexeddb':
@@ -231,17 +223,17 @@ export class Storage {
 /** @hidden */
 export function getDefaultConfig() {
   return {
-    name        : '_ionicstorage',
-    storeName   : '_ionickv',
+    name: '_ionicstorage',
+    storeName: '_ionickv',
     driverOrder: ['sqlite', 'indexeddb', 'websql', 'localstorage']
   };
 }
 
 /** @hidden */
 export interface StorageConfig {
-    name?: string;
-    storeName?: string;
-    driverOrder?: string[];
+  name?: string;
+  storeName?: string;
+  driverOrder?: string[];
 };
 
 /** @hidden */
@@ -252,4 +244,3 @@ export function provideStorage(storageConfig: StorageConfig): Storage {
   const config = !!storageConfig ? storageConfig : getDefaultConfig();
   return new Storage(config);
 }
-
