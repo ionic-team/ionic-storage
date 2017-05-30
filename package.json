@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/driftyco/ionic-storage.git"
+    "url": "git+https://github.com/ionic-team/ionic-storage.git"
   },
   "keywords": [
     "ionic",
@@ -28,9 +28,9 @@
   "author": "Max Lynch <max@ionic.io>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/driftyco/ionic-storage/issues"
+    "url": "https://github.com/ionic-team/ionic-storage/issues"
   },
-  "homepage": "https://github.com/driftyco/ionic-storage#readme",
+  "homepage": "https://github.com/ionic-team/ionic-storage#readme",
   "dependencies": {
     "@types/localforage": "0.0.30",
     "localforage": "~1.4.2",

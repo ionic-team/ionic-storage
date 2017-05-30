@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/driftyco/ionic-storage.svg?style=shield)](https://circleci.com/gh/driftyco/ionic-storage)
+[![Circle CI](https://circleci.com/gh/ionic-team/ionic-storage.svg?style=shield)](https://circleci.com/gh/ionic-team/ionic-storage)
 
 # Ionic Storage
 A simple key-value Storage module for Ionic apps based on LocalForage, with out-of-the-box support for SQLite. This utility makes it easy to use the best storage engine available without having to interact with it directly. Currently the ordering is SQLite, IndexedDB, WebSQL, and LocalStorage.
@@ -7,7 +7,7 @@ One reason we prioritize SQLite is because of some OS-dependent issues with stor
 
 If you want to perform arbitrary SQL queries and have one of the best storage options around, we recommend using the [Ionic Native SQLite plugin](http://ionicframework.com/docs/v2/native/sqlite/) directly. This engine no longer supports the `query` feature underneath as it was not portable and only worked for SQLite anyways.
 
-For those coming from Ionic pre RC.0, here is more insight in to the reason for us moving to this module: https://github.com/driftyco/ionic/issues/8269#issuecomment-250590367
+For those coming from Ionic pre RC.0, here is more insight in to the reason for us moving to this module: https://github.com/ionic-team/ionic/issues/8269#issuecomment-250590367
 
 ### Installation
 
