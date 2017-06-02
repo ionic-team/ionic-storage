@@ -21,7 +21,7 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * @usage
  * First, if you'd like to use SQLite, install the cordova-sqlite-storage plugin:
  * ```bash
- * cordova plugin add cordova-sqlite-storage --save
+ * ionic cordova plugin add cordova-sqlite-storage
  * ```
  *
  * Next, install the package (comes by default for Ionic apps > Ionic V1):
