@@ -5,13 +5,13 @@ A simple key-value Storage module for Ionic apps based on LocalForage, with out-
 
 One reason we prioritize SQLite is because of some OS-dependent issues with storage in the browser in native apps. As a major example, iOS will currently clear out Local Storage (and IndexedDB it's been shown) when the device runs low on memory. To avoid that, a file-based storage approach with SQLite will retain all your data.
 
-If you want to perform arbitrary SQL queries and have one of the best storage options around, we recommend using the [Ionic Native SQLite plugin](http://ionicframework.com/docs/v2/native/sqlite/) directly. This engine no longer supports the `query` feature underneath as it was not portable and only worked for SQLite anyways.
+If you want to perform arbitrary SQL queries and have one of the best storage options around, we recommend using the [Ionic Native SQLite plugin](https://ionicframework.com/docs/v2/native/sqlite/) directly. This engine no longer supports the `query` feature underneath as it was not portable and only worked for SQLite anyways.
 
 For those coming from Ionic pre RC.0, here is more insight in to the reason for us moving to this module: https://github.com/ionic-team/ionic/issues/8269#issuecomment-250590367
 
 ### Installation
 
-To use this in your Ionic 2/Angular 2 apps, either start a fresh Ionic project which has it installed by default, or run:
+To use this in your Ionic /Angular apps, either start a fresh Ionic project which has it installed by default, or run:
 
 ```bash
 npm install @ionic/storage
@@ -48,7 +48,7 @@ import { IonicStorageModule } from '@ionic/storage';
     ...
   ]
 })
-export class AppModule {}
+export class AppModule { }
 ```
 
 Now, you can easily inject `Storage` into a component:
@@ -67,10 +67,6 @@ import { Storage } from '@ionic/storage';
 export class HomePage {
 
   constructor(public navCtrl: NavController, public storage: Storage) {
-    storage.ready().then(() => {
-      // Storage is ready to use
-      // Note: ready() is only available in 1.1.7 or greater!
-    });
   }
 
 }
@@ -122,7 +118,7 @@ import { Storage } from '@ionic/storage';
  bootstrap: ...,
  entryComponents: ...,
 })
-export class AppModule {}
+export class AppModule { }
 ```
 
 
