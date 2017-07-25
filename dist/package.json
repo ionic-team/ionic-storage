@@ -1,0 +1,43 @@
+{
+  "name": "@ionic/storage",
+  "version": "2.0.1",
+  "description": "Ionic Storage utility",
+  "main": "es2015/index.js",
+  "module": "es2015/index.js",
+  "typings": "es2015/index.d.ts",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "clean-generated": "rm -rf src/*.ngfactory.ts && rm -rf src/*.ngsummary.json",
+    "build-cjs": "ngc -p .",
+    "build-es2015": "ngc -p ./tsconfig-es2015.json",
+    "preparePackage": "node ./scripts/copy-package",
+    "build": "npm run clean && npm run build-cjs && npm run build-es2015 && npm run preparePackage && npm run clean-generated",
+    "publishPackage": "npm run build && cd dist && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ionic-team/ionic-storage.git"
+  },
+  "keywords": [
+    "ionic",
+    "angular",
+    "localforage",
+    "cordova",
+    "hybrid"
+  ],
+  "author": "Max Lynch <max@ionic.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ionic-team/ionic-storage/issues"
+  },
+  "homepage": "https://github.com/ionic-team/ionic-storage#readme",
+  "dependencies": {
+    "@types/localforage": "0.0.30",
+    "localforage": "~1.4.2",
+    "localforage-cordovasqlitedriver": "~1.5.0"
+  },
+  "peerDependencies": {
+    "@angular/core": "*",
+    "rxjs": "*"
+  }
+}
