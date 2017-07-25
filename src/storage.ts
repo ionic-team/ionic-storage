@@ -218,6 +218,15 @@ export class Storage {
   forEach(iteratorCallback: (value: any, key: string, iterationNumber: Number) => any): Promise<void> {
     return this._dbPromise.then(db => db.iterate(iteratorCallback));
   }
+
+  /**
+   * Create new db instance
+   * @param name instance name to be created
+   */
+  createInstance(name: string) {
+    return this._dbPromise.then(db => db.createInstance(name));
+  }
+
 }
 
 /** @hidden */
