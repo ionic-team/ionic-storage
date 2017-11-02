@@ -37,9 +37,9 @@
     "localforage-cordovasqlitedriver": "~1.5.0"
   },
   "devDependencies": {
-    "@angular/core": "4.1.2",
-    "@angular/compiler": "4.1.2",
-    "@angular/compiler-cli": "4.1.2",
+    "@angular/core": "5.0.0",
+    "@angular/compiler": "5.0.0",
+    "@angular/compiler-cli": "5.0.0",
     "@types/node": "^6.0.41",
     "canonical-path": "0.0.2",
     "cpr": "^2.0.0",
@@ -47,10 +47,10 @@
     "dgeni-packages": "0.16.10",
     "gulp": "^3.9.1",
     "semver": "^5.3.0",
-    "rxjs": "5.1.1",
+    "rxjs": "5.5.2",
     "tslint": "^3.10.2",
     "tslint-ionic-rules": "*",
-    "typescript": "~2.3.3"
+    "typescript": "~2.4.2"
   },
   "peerDependencies": {
     "@angular/core": "*",

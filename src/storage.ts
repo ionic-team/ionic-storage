@@ -1,4 +1,4 @@
-import { Injectable, OpaqueToken, Optional } from '@angular/core';
+import { Injectable, InjectionToken, Optional } from '@angular/core';
 
 import LocalForage from 'localforage';
 
@@ -38,7 +38,7 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  *   declarations: [
  *     // ...
  *   ],
- *   imports: [      
+ *   imports: [
  *     BrowserModule,
  *     IonicModule.forRoot(MyApp),
  *     IonicStorageModule.forRoot()
@@ -237,7 +237,7 @@ export interface StorageConfig {
 };
 
 /** @hidden */
-export const StorageConfigToken = new OpaqueToken('STORAGE_CONFIG_TOKEN');
+export const StorageConfigToken = new InjectionToken('STORAGE_CONFIG_TOKEN');
 
 /** @hidden */
 export function provideStorage(storageConfig: StorageConfig): Storage {
