@@ -2,16 +2,14 @@
   "name": "@ionic/storage",
   "version": "2.1.0",
   "description": "Ionic Storage utility",
-  "main": "es2015/index.js",
-  "module": "es2015/index.js",
-  "typings": "es2015/index.d.ts",
+  "main": "dist/src/index.js",
+  "module": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
-    "clean-generated": "rm -rf src/*.ngfactory.ts && rm -rf src/*.ngsummary.json",
-    "build-cjs": "ngc -p .",
-    "build-es2015": "ngc -p ./tsconfig-es2015.json",
-    "preparePackage": "node ./scripts/copy-package",
-    "build": "npm run clean && npm run build-cjs && npm run build-es2015 && npm run preparePackage && npm run clean-generated",
+    "clean-generated": "rm -rf dist/*.ngfactory.ts && rm -rf dist/node_modules",
+    "compile": "ngc -p .",
+    "build": "npm run clean && npm run compile && npm run clean-generated",
     "publishPackage": "npm run build && cd dist && npm publish"
   },
   "repository": {
@@ -37,17 +35,18 @@
     "localforage-cordovasqlitedriver": "~1.5.0"
   },
   "devDependencies": {
-    "@angular/core": "5.0.0",
     "@angular/compiler": "5.0.0",
     "@angular/compiler-cli": "5.0.0",
+    "@angular/core": "5.0.0",
     "@types/node": "^6.0.41",
     "canonical-path": "0.0.2",
     "cpr": "^2.0.0",
     "dgeni": "0.4.7",
     "dgeni-packages": "0.16.10",
     "gulp": "^3.9.1",
-    "semver": "^5.3.0",
+    "rimraf": "^2.6.2",
     "rxjs": "5.5.2",
+    "semver": "^5.3.0",
     "tslint": "^3.10.2",
     "tslint-ionic-rules": "*",
     "typescript": "~2.4.2"
