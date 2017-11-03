@@ -1,4 +1,4 @@
-import { Injectable, OpaqueToken, Optional } from '@angular/core';
+import { Injectable, InjectionToken, Optional } from '@angular/core';
 
 import LocalForage from 'localforage';
 
@@ -38,7 +38,7 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  *   declarations: [
  *     // ...
  *   ],
- *   imports: [      
+ *   imports: [
  *     BrowserModule,
  *     IonicModule.forRoot(MyApp),
  *     IonicStorageModule.forRoot()
@@ -100,147 +100,147 @@ import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
  * ```
  */
 export class Storage {
-  private _dbPromise: Promise<LocalForage>;
-  private _driver: string = null;
+    private _dbPromise: Promise<LocalForage>;
+    private _driver: string = null;
 
-  /**
-   * Create a new Storage instance using the order of drivers and any additional config
-   * options to pass to LocalForage.
-   *
-   * Possible driver options are: ['sqlite', 'indexeddb', 'websql', 'localstorage'] and the
-   * default is that exact ordering.
-   */
-  constructor(config: StorageConfig) {
-    this._dbPromise = new Promise((resolve, reject) => {
-      let db: LocalForage;
+    /**
+     * Create a new Storage instance using the order of drivers and any additional config
+     * options to pass to LocalForage.
+     *
+     * Possible driver options are: ['sqlite', 'indexeddb', 'websql', 'localstorage'] and the
+     * default is that exact ordering.
+     */
+    constructor(config: StorageConfig) {
+        this._dbPromise = new Promise((resolve, reject) => {
+            let db: LocalForage;
 
-      const defaultConfig = getDefaultConfig();
-      const actualConfig = Object.assign(defaultConfig, config || {});
+            const defaultConfig = getDefaultConfig();
+            const actualConfig = Object.assign(defaultConfig, config || {});
 
-      LocalForage.defineDriver(CordovaSQLiteDriver).then(() => {
-        db = LocalForage.createInstance(actualConfig);
-      })
-        .then(() => db.setDriver(this._getDriverOrder(actualConfig.driverOrder)))
-        .then(() => {
-          this._driver = db.driver();
-          resolve(db);
-        })
-        .catch(reason => reject(reason));
-    });
-  }
+            LocalForage.defineDriver(CordovaSQLiteDriver).then(() => {
+                db = LocalForage.createInstance(actualConfig);
+            })
+                .then(() => db.setDriver(this._getDriverOrder(actualConfig.driverOrder)))
+                .then(() => {
+                    this._driver = db.driver();
+                    resolve(db);
+                })
+                .catch(reason => reject(reason));
+        });
+    }
 
-  /**
-   * Get the name of the driver being used.
-   * @returns {string | null} Name of the driver
-   */
-  get driver() {
-    return this._driver;
-  }
+    /**
+     * Get the name of the driver being used.
+     * @returns {string | null} Name of the driver
+     */
+    get driver() {
+        return this._driver;
+    }
 
-  /**
-   * Reflect the readiness of the store.
-   * @returns {Promise<LocalForage>} Returns a promise that resolves when the store is ready
-   */
-  ready() {
-    return this._dbPromise;
-  }
+    /**
+     * Reflect the readiness of the store.
+     * @returns {Promise<LocalForage>} Returns a promise that resolves when the store is ready
+     */
+    ready() {
+        return this._dbPromise;
+    }
 
-  _getDriverOrder(driverOrder) {
-    return driverOrder.map((driver) => {
-      switch (driver) {
-        case 'sqlite':
-          return CordovaSQLiteDriver._driver;
-        case 'indexeddb':
-          return LocalForage.INDEXEDDB;
-        case 'websql':
-          return LocalForage.WEBSQL;
-        case 'localstorage':
-          return LocalForage.LOCALSTORAGE;
-      }
-    });
-  }
+    _getDriverOrder(driverOrder) {
+        return driverOrder.map((driver) => {
+            switch (driver) {
+                case 'sqlite':
+                    return CordovaSQLiteDriver._driver;
+                case 'indexeddb':
+                    return LocalForage.INDEXEDDB;
+                case 'websql':
+                    return LocalForage.WEBSQL;
+                case 'localstorage':
+                    return LocalForage.LOCALSTORAGE;
+            }
+        });
+    }
 
-  /**
-   * Get the value associated with the given key.
-   * @param {any} key the key to identify this value
-   * @returns {Promise} Returns a promise with the value of the given key
-   */
-  get(key: string): Promise<any> {
-    return this._dbPromise.then(db => db.getItem(key));
-  }
+    /**
+     * Get the value associated with the given key.
+     * @param {any} key the key to identify this value
+     * @returns {Promise} Returns a promise with the value of the given key
+     */
+    get(key: string): Promise<any> {
+        return this._dbPromise.then(db => db.getItem(key));
+    }
 
-  /**
-   * Set the value for the given key.
-   * @param {any} key the key to identify this value
-   * @param {any} value the value for this key
-   * @returns {Promise} Returns a promise that resolves when the key and value are set
-   */
-  set(key: string, value: any): Promise<any> {
-    return this._dbPromise.then(db => db.setItem(key, value));
-  }
+    /**
+     * Set the value for the given key.
+     * @param {any} key the key to identify this value
+     * @param {any} value the value for this key
+     * @returns {Promise} Returns a promise that resolves when the key and value are set
+     */
+    set(key: string, value: any): Promise<any> {
+        return this._dbPromise.then(db => db.setItem(key, value));
+    }
 
-  /**
-   * Remove any value associated with this key.
-   * @param {any} key the key to identify this value
-   * @returns {Promise} Returns a promise that resolves when the value is removed
-   */
-  remove(key: string): Promise<any> {
-    return this._dbPromise.then(db => db.removeItem(key));
-  }
+    /**
+     * Remove any value associated with this key.
+     * @param {any} key the key to identify this value
+     * @returns {Promise} Returns a promise that resolves when the value is removed
+     */
+    remove(key: string): Promise<any> {
+        return this._dbPromise.then(db => db.removeItem(key));
+    }
 
-  /**
-   * Clear the entire key value store. WARNING: HOT!
-   * @returns {Promise} Returns a promise that resolves when the store is cleared
-   */
-  clear(): Promise<void> {
-    return this._dbPromise.then(db => db.clear());
-  }
+    /**
+     * Clear the entire key value store. WARNING: HOT!
+     * @returns {Promise} Returns a promise that resolves when the store is cleared
+     */
+    clear(): Promise<void> {
+        return this._dbPromise.then(db => db.clear());
+    }
 
-  /**
-   * @returns {Promise} Returns a promise that resolves with the number of keys stored.
-   */
-  length(): Promise<number> {
-    return this._dbPromise.then(db => db.length());
-  }
+    /**
+     * @returns {Promise} Returns a promise that resolves with the number of keys stored.
+     */
+    length(): Promise<number> {
+        return this._dbPromise.then(db => db.length());
+    }
 
-  /**
-   * @returns {Promise} Returns a promise that resolves with the keys in the store.
-   */
-  keys(): Promise<string[]> {
-    return this._dbPromise.then(db => db.keys());
-  }
+    /**
+     * @returns {Promise} Returns a promise that resolves with the keys in the store.
+     */
+    keys(): Promise<string[]> {
+        return this._dbPromise.then(db => db.keys());
+    }
 
-  /**
-   * Iterate through each key,value pair.
-   * @param {any} iteratorCallback a callback of the form (value, key, iterationNumber)
-   * @returns {Promise} Returns a promise that resolves when the iteration has finished.
-   */
-  forEach(iteratorCallback: (value: any, key: string, iterationNumber: Number) => any): Promise<void> {
-    return this._dbPromise.then(db => db.iterate(iteratorCallback));
-  }
+    /**
+     * Iterate through each key,value pair.
+     * @param {any} iteratorCallback a callback of the form (value, key, iterationNumber)
+     * @returns {Promise} Returns a promise that resolves when the iteration has finished.
+     */
+    forEach(iteratorCallback: (value: any, key: string, iterationNumber: Number) => any): Promise<void> {
+        return this._dbPromise.then(db => db.iterate(iteratorCallback));
+    }
 }
 
 /** @hidden */
 export function getDefaultConfig() {
-  return {
-    name: '_ionicstorage',
-    storeName: '_ionickv',
-    driverOrder: ['sqlite', 'indexeddb', 'websql', 'localstorage']
-  };
+    return {
+        name: '_ionicstorage',
+        storeName: '_ionickv',
+        driverOrder: ['sqlite', 'indexeddb', 'websql', 'localstorage']
+    };
 }
 
 /** @hidden */
 export interface StorageConfig {
-  name?: string;
-  storeName?: string;
-  driverOrder?: string[];
+    name?: string;
+    storeName?: string;
+    driverOrder?: string[];
 };
 
 /** @hidden */
-export const StorageConfigToken = new OpaqueToken('STORAGE_CONFIG_TOKEN');
+export const StorageConfigToken = new InjectionToken<any>('STORAGE_CONFIG_TOKEN');
 
 /** @hidden */
 export function provideStorage(storageConfig: StorageConfig): Storage {
-  const config = !!storageConfig ? storageConfig : getDefaultConfig();
-  return new Storage(config);
+    const config = !!storageConfig ? storageConfig : getDefaultConfig();
+    return new Storage(config);
 }
