@@ -128,5 +128,4 @@ When you're ready to release a new version, run the following commands:
 
 1.  npm version (patch|minor|major)
 2.  npm run build
-3.  cd dist
-4.  npm publish
+3.  npm publish
