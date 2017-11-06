@@ -2,9 +2,9 @@
   "name": "@ionic/storage",
   "version": "2.1.2",
   "description": "Ionic Storage utility",
-  "main": "dist/src/index.js",
-  "module": "dist/src/index.js",
-  "typings": "dist/src/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
     "clean-generated": "rm -rf dist/*.ngfactory.ts && rm -rf dist/node_modules && rm -rf src/*.ngfactory.ts && rm -rf src/*.ngsummary.json",
