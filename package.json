@@ -9,8 +9,7 @@
     "clean": "rm -rf dist",
     "clean-generated": "rm -rf dist/*.ngfactory.ts && rm -rf dist/node_modules && rm -rf src/*.ngfactory.ts && rm -rf src/*.ngsummary.json",
     "compile": "ngc -p .",
-    "build": "npm run clean && npm run compile && npm run clean-generated",
-    "publishPackage": "npm run build && cd dist && npm publish"
+    "build": "npm run clean && npm run compile && npm run clean-generated"
   },
   "repository": {
     "type": "git",
