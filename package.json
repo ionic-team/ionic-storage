@@ -7,7 +7,7 @@
   "typings": "dist/src/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
-    "clean-generated": "rm -rf dist/*.ngfactory.ts && rm -rf dist/node_modules",
+    "clean-generated": "rm -rf dist/*.ngfactory.ts && rm -rf dist/node_modules && rm -rf src/*.ngfactory.ts && rm -rf src/*.ngsummary.json",
     "compile": "ngc -p .",
     "build": "npm run clean && npm run compile && npm run clean-generated",
     "publishPackage": "npm run build && cd dist && npm publish"
@@ -35,9 +35,9 @@
     "localforage-cordovasqlitedriver": "~1.5.0"
   },
   "devDependencies": {
-    "@angular/compiler": "5.0.0",
-    "@angular/compiler-cli": "5.0.0",
-    "@angular/core": "5.0.0",
+    "@angular/compiler": "4.4.4",
+    "@angular/compiler-cli": "4.4.4",
+    "@angular/core": "4.4.4",
     "@types/node": "^6.0.41",
     "canonical-path": "0.0.2",
     "cpr": "^2.0.0",
