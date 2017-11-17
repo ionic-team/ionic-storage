@@ -29,9 +29,8 @@
   },
   "homepage": "https://github.com/ionic-team/ionic-storage#readme",
   "dependencies": {
-    "@types/localforage": "0.0.30",
-    "localforage": "~1.4.2",
-    "localforage-cordovasqlitedriver": "~1.5.0"
+    "localforage": "^1.5.0",
+    "localforage-cordovasqlitedriver": "^1.6.0"
   },
   "devDependencies": {
     "@angular/compiler": "4.4.4",
