@@ -225,6 +225,7 @@ export function getDefaultConfig() {
   return {
     name: '_ionicstorage',
     storeName: '_ionickv',
+    dbKey: '_ionickey',
     driverOrder: ['sqlite', 'indexeddb', 'websql', 'localstorage']
   };
 }
@@ -233,6 +234,7 @@ export function getDefaultConfig() {
 export interface StorageConfig {
   name?: string;
   storeName?: string;
+  dbKey?: string;
   driverOrder?: string[];
 };
 
