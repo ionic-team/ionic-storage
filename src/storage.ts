@@ -1,12 +1,12 @@
-import { Injectable, InjectionToken, Optional } from "@angular/core";
+import { Injectable, InjectionToken, Optional } from '@angular/core';
 
-import LocalForage from "localforage";
+import LocalForage from 'localforage';
 
-import CordovaSQLiteDriver from "localforage-cordovasqlitedriver";
+import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 import {
   local as webExtensionLocalStorageDriver,
   sync as webExtensionSyncStorageDriver
-} from "localforage-webextensionstorage-driver";
+} from 'localforage-webextensionstorage-driver';
 
 /**
  * Storage is an easy way to store key/value pairs and JSON objects.
@@ -158,17 +158,17 @@ export class Storage {
   _getDriverOrder(driverOrder) {
     return driverOrder.map(driver => {
       switch (driver) {
-        case "sqlite":
+        case 'sqlite':
           return CordovaSQLiteDriver._driver;
-        case "indexeddb":
+        case 'indexeddb':
           return LocalForage.INDEXEDDB;
-        case "websql":
+        case 'websql':
           return LocalForage.WEBSQL;
-        case "localstorage":
+        case 'localstorage':
           return LocalForage.LOCALSTORAGE;
-        case "webExtensionSyncStorage":
+        case 'webExtensionSyncStorage':
           return webExtensionSyncStorageDriver._driver;
-        case "webExtensionLocalStorage":
+        case 'webExtensionLocalStorage':
           return webExtensionLocalStorageDriver._driver;
       }
     });
@@ -239,9 +239,9 @@ export class Storage {
 /** @hidden */
 export function getDefaultConfig() {
   return {
-    name: "_ionicstorage",
-    storeName: "_ionickv",
-    driverOrder: ["sqlite", "indexeddb", "websql", "localstorage"]
+    name: '_ionicstorage',
+    storeName: '_ionickv',
+    driverOrder: ['sqlite', 'indexeddb', 'websql', 'localstorage']
   };
 }
 
@@ -253,7 +253,7 @@ export interface StorageConfig {
 }
 
 /** @hidden */
-export const StorageConfigToken = new InjectionToken("STORAGE_CONFIG_TOKEN");
+export const StorageConfigToken = new InjectionToken('STORAGE_CONFIG_TOKEN');
 
 /** @hidden */
 export function provideStorage(storageConfig: StorageConfig): Storage {
