@@ -1,4 +1,4 @@
-import { Injectable, InjectionToken, Optional } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 
 import * as LocalForage from 'localforage';
 
@@ -247,7 +247,9 @@ export interface StorageConfig {
 }
 
 /** @hidden */
-export const StorageConfigToken = new InjectionToken('STORAGE_CONFIG_TOKEN');
+export const StorageConfigToken = new InjectionToken<any>(
+  'STORAGE_CONFIG_TOKEN'
+);
 
 /** @hidden */
 export function provideStorage(storageConfig: StorageConfig): Storage {
