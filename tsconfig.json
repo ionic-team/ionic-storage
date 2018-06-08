@@ -9,12 +9,9 @@
     "noImplicitAny": false,
     "outDir": "./dist",
     "target": "es5",
-    "types": [
-      "node"
-    ]
+    "types": ["node"],
+    "rootDir": "src"
   },
-  "exclude": [
-    "node_modules",
-    "scripts"
-  ]
+  "files": ["src/index.ts"],
+  "exclude": ["node_modules", "scripts"]
 }

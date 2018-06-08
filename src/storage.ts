@@ -1,9 +1,8 @@
 import { Injectable, InjectionToken, Optional } from '@angular/core';
 
-import LocalForage from 'localforage';
+import * as LocalForage from 'localforage';
 
-import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
-
+import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 
 /**
  * Storage is an easy way to store key/value pairs and JSON objects.
@@ -117,10 +116,13 @@ export class Storage {
       const defaultConfig = getDefaultConfig();
       const actualConfig = Object.assign(defaultConfig, config || {});
 
-      LocalForage.defineDriver(CordovaSQLiteDriver).then(() => {
-        db = LocalForage.createInstance(actualConfig);
-      })
-        .then(() => db.setDriver(this._getDriverOrder(actualConfig.driverOrder)))
+      LocalForage.defineDriver(CordovaSQLiteDriver)
+        .then(() => {
+          db = LocalForage.createInstance(actualConfig);
+        })
+        .then(() =>
+          db.setDriver(this._getDriverOrder(actualConfig.driverOrder))
+        )
         .then(() => {
           this._driver = db.driver();
           resolve(db);
@@ -131,22 +133,23 @@ export class Storage {
 
   /**
    * Get the name of the driver being used.
-   * @returns {string | null} Name of the driver
+   * @returns Name of the driver
    */
-  get driver() {
+  get driver(): string | null {
     return this._driver;
   }
 
   /**
    * Reflect the readiness of the store.
-   * @returns {Promise<LocalForage>} Returns a promise that resolves when the store is ready
+   * @returns Returns a promise that resolves when the store is ready
    */
-  ready() {
+  ready(): Promise<LocalForage> {
     return this._dbPromise;
   }
 
-  _getDriverOrder(driverOrder) {
-    return driverOrder.map((driver) => {
+  /** @hidden */
+  private _getDriverOrder(driverOrder) {
+    return driverOrder.map(driver => {
       switch (driver) {
         case 'sqlite':
           return CordovaSQLiteDriver._driver;
@@ -162,8 +165,8 @@ export class Storage {
 
   /**
    * Get the value associated with the given key.
-   * @param {any} key the key to identify this value
-   * @returns {Promise} Returns a promise with the value of the given key
+   * @param key the key to identify this value
+   * @returns Returns a promise with the value of the given key
    */
   get(key: string): Promise<any> {
     return this._dbPromise.then(db => db.getItem(key));
@@ -171,9 +174,9 @@ export class Storage {
 
   /**
    * Set the value for the given key.
-   * @param {any} key the key to identify this value
-   * @param {any} value the value for this key
-   * @returns {Promise} Returns a promise that resolves when the key and value are set
+   * @param key the key to identify this value
+   * @param value the value for this key
+   * @returns Returns a promise that resolves when the key and value are set
    */
   set(key: string, value: any): Promise<any> {
     return this._dbPromise.then(db => db.setItem(key, value));
@@ -181,8 +184,8 @@ export class Storage {
 
   /**
    * Remove any value associated with this key.
-   * @param {any} key the key to identify this value
-   * @returns {Promise} Returns a promise that resolves when the value is removed
+   * @param key the key to identify this value
+   * @returns Returns a promise that resolves when the value is removed
    */
   remove(key: string): Promise<any> {
     return this._dbPromise.then(db => db.removeItem(key));
@@ -190,21 +193,21 @@ export class Storage {
 
   /**
    * Clear the entire key value store. WARNING: HOT!
-   * @returns {Promise} Returns a promise that resolves when the store is cleared
+   * @returns Returns a promise that resolves when the store is cleared
    */
   clear(): Promise<void> {
     return this._dbPromise.then(db => db.clear());
   }
 
   /**
-   * @returns {Promise} Returns a promise that resolves with the number of keys stored.
+   * @returns Returns a promise that resolves with the number of keys stored.
    */
   length(): Promise<number> {
     return this._dbPromise.then(db => db.length());
   }
 
   /**
-   * @returns {Promise} Returns a promise that resolves with the keys in the store.
+   * @returns Returns a promise that resolves with the keys in the store.
    */
   keys(): Promise<string[]> {
     return this._dbPromise.then(db => db.keys());
@@ -212,10 +215,12 @@ export class Storage {
 
   /**
    * Iterate through each key,value pair.
-   * @param {any} iteratorCallback a callback of the form (value, key, iterationNumber)
-   * @returns {Promise} Returns a promise that resolves when the iteration has finished.
+   * @param iteratorCallback a callback of the form (value, key, iterationNumber)
+   * @returns Returns a promise that resolves when the iteration has finished.
    */
-  forEach(iteratorCallback: (value: any, key: string, iterationNumber: Number) => any): Promise<void> {
+  forEach(
+    iteratorCallback: (value: any, key: string, iterationNumber: Number) => any
+  ): Promise<void> {
     return this._dbPromise.then(db => db.iterate(iteratorCallback));
   }
 }
@@ -234,7 +239,7 @@ export interface StorageConfig {
   name?: string;
   storeName?: string;
   driverOrder?: string[];
-};
+}
 
 /** @hidden */
 export const StorageConfigToken = new InjectionToken('STORAGE_CONFIG_TOKEN');
