@@ -32,7 +32,7 @@
     "@types/localforage": "0.0.30",
     "localforage": "~1.4.2",
     "localforage-cordovasqlitedriver": "~1.5.0",
-    "localforage-webextensionstorage-driver": "^1.1.2"
+    "localforage-webextensionstorage-driver": "^1.2"
   },
   "devDependencies": {
     "@angular/compiler": "4.4.4",
