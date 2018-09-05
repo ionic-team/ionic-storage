@@ -1,5 +1,5 @@
-<a name="2.1.3"></a>
-## [2.1.3](https://github.com/ionic-team/ionic-storage/compare/v2.1.2...v2.1.3) (2018-06-08)
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/ionic-team/ionic-storage/compare/v2.1.2...v2.2.0) (2018-09-05)
 
 
 ### Bug Fixes
