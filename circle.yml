@@ -4,9 +4,6 @@ jobs:
     working_directory: ~/ionic/
     docker:
       - image: node:7
-    filters:
-      branches:
-        only: master
     steps:
       - checkout
       - restore_cache:
@@ -33,9 +30,15 @@ jobs:
       - add_ssh_keys
       - deploy:
           name: Update docs
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              ./scripts/ci/deploy.sh
-            else
-              echo "We are on ${CIRCLE_BRANCH} branch, not going to update docs."
-            fi
+          command: ./scripts/ci/deploy.sh
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
