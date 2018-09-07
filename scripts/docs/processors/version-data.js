@@ -23,8 +23,8 @@
 //       versions = [];
 //     }
 //
-//     !_.contains(versions, currentVersion) && versions.unshift(currentVersion);
-//     !_.contains(versions, 'nightly') && versions.unshift('nightly');
+//     !_.includes(versions, currentVersion) && versions.unshift(currentVersion);
+//     !_.includes(versions, 'nightly') && versions.unshift('nightly');
 //
 //     //First semver valid version is latest
 //     var latestVersion = _.find(versions, semver.valid);
