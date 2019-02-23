@@ -111,6 +111,12 @@ export class Storage {
    */
   constructor(config: StorageConfig) {
     this._dbPromise = new Promise((resolve, reject) => {
+      if (typeof process !== 'undefined') {
+        const noopDriver = getNoopDriver();
+        resolve(noopDriver);
+        return;
+      }
+
       let db: LocalForage;
 
       const defaultConfig = getDefaultConfig();
@@ -255,4 +261,19 @@ export const StorageConfigToken = new InjectionToken<any>(
 export function provideStorage(storageConfig: StorageConfig): Storage {
   const config = !!storageConfig ? storageConfig : getDefaultConfig();
   return new Storage(config);
+}
+
+function getNoopDriver() {
+  // noop driver for ssr environment
+  const noop = () => {};
+  const driver: any = {
+    getItem: noop,
+    setItem: noop,
+    removeItem: noop,
+    clear: noop,
+    length: () => 0,
+    keys: () => [],
+    iterate: noop
+  };
+  return driver;
 }
