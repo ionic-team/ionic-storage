@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/ionic-team/ionic-storage.svg?style=shield)](https://circleci.com/gh/ionic-team/ionic-storage)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fionic-team%2Fionic-storage%2Fbadge%3Fref%3Dmain&style=flat)](https://actions-badge.atrox.dev/ionic-team/ionic-storage/goto?ref=main)
 
 # Ionic Storage
 A simple key-value Storage module for Ionic apps based on LocalForage, with out-of-the-box support for SQLite. This utility makes it easy to use the best storage engine available without having to interact with it directly. Currently the ordering is SQLite, IndexedDB, WebSQL, and LocalStorage.
@@ -55,9 +55,6 @@ Now, you can easily inject `Storage` into a component:
 
 ```typescript
 import { Component } from '@angular/core';
-
-import { NavController } from 'ionic-angular';
-
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -66,7 +63,7 @@ import { Storage } from '@ionic/storage';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public storage: Storage) {
+  constructor(private storage: Storage) {
   }
 
 }
