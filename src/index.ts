@@ -11,7 +11,7 @@ export { StorageConfig, StorageConfigToken, Storage };
 
 @NgModule()
 export class IonicStorageModule {
-  static forRoot(storageConfig: StorageConfig = null): ModuleWithProviders {
+  static forRoot(storageConfig: StorageConfig = null): ModuleWithProviders<IonicStorageModule> {
     return {
       ngModule: IonicStorageModule,
       providers: [
