@@ -1,4 +1,5 @@
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
 
 import * as LocalForage from 'localforage';
 
@@ -109,9 +110,12 @@ export class Storage {
    * Possible driver options are: ['sqlite', 'indexeddb', 'websql', 'localstorage'] and the
    * default is that exact ordering.
    */
-  constructor(config: StorageConfig) {
+  constructor(
+    config: StorageConfig,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
     this._dbPromise = new Promise((resolve, reject) => {
-      if (typeof process !== 'undefined') {
+      if (isPlatformServer(this.platformId)) {
         const noopDriver = getNoopDriver();
         resolve(noopDriver);
         return;
@@ -133,7 +137,7 @@ export class Storage {
           this._driver = db.driver();
           resolve(db);
         })
-        .catch(reason => reject(reason));
+        .catch((reason) => reject(reason));
     });
   }
 
@@ -154,8 +158,8 @@ export class Storage {
   }
 
   /** @hidden */
-  private _getDriverOrder(driverOrder) {
-    return driverOrder.map(driver => {
+  private _getDriverOrder(driverOrder: string[]) {
+    return driverOrder.map((driver: string) => {
       switch (driver) {
         case 'sqlite':
           return CordovaSQLiteDriver._driver;
@@ -175,7 +179,7 @@ export class Storage {
    * @returns Returns a promise with the value of the given key
    */
   get(key: string): Promise<any> {
-    return this._dbPromise.then(db => db.getItem(key));
+    return this._dbPromise.then((db) => db.getItem(key));
   }
 
   /**
@@ -185,7 +189,7 @@ export class Storage {
    * @returns Returns a promise that resolves when the key and value are set
    */
   set(key: string, value: any): Promise<any> {
-    return this._dbPromise.then(db => db.setItem(key, value));
+    return this._dbPromise.then((db) => db.setItem(key, value));
   }
 
   /**
@@ -194,7 +198,7 @@ export class Storage {
    * @returns Returns a promise that resolves when the value is removed
    */
   remove(key: string): Promise<any> {
-    return this._dbPromise.then(db => db.removeItem(key));
+    return this._dbPromise.then((db) => db.removeItem(key));
   }
 
   /**
@@ -202,21 +206,21 @@ export class Storage {
    * @returns Returns a promise that resolves when the store is cleared
    */
   clear(): Promise<void> {
-    return this._dbPromise.then(db => db.clear());
+    return this._dbPromise.then((db) => db.clear());
   }
 
   /**
    * @returns Returns a promise that resolves with the number of keys stored.
    */
   length(): Promise<number> {
-    return this._dbPromise.then(db => db.length());
+    return this._dbPromise.then((db) => db.length());
   }
 
   /**
    * @returns Returns a promise that resolves with the keys in the store.
    */
   keys(): Promise<string[]> {
-    return this._dbPromise.then(db => db.keys());
+    return this._dbPromise.then((db) => db.keys());
   }
 
   /**
@@ -227,7 +231,7 @@ export class Storage {
   forEach(
     iteratorCallback: (value: any, key: string, iterationNumber: Number) => any
   ): Promise<void> {
-    return this._dbPromise.then(db => db.iterate(iteratorCallback));
+    return this._dbPromise.then((db) => db.iterate(iteratorCallback));
   }
 }
 
@@ -237,7 +241,7 @@ export function getDefaultConfig() {
     name: '_ionicstorage',
     storeName: '_ionickv',
     dbKey: '_ionickey',
-    driverOrder: ['sqlite', 'indexeddb', 'websql', 'localstorage']
+    driverOrder: ['sqlite', 'indexeddb', 'websql', 'localstorage'],
   };
 }
 
@@ -258,9 +262,12 @@ export const StorageConfigToken = new InjectionToken<any>(
 );
 
 /** @hidden */
-export function provideStorage(storageConfig: StorageConfig): Storage {
+export function provideStorage(
+  storageConfig: StorageConfig,
+  platformID: Object
+): Storage {
   const config = !!storageConfig ? storageConfig : getDefaultConfig();
-  return new Storage(config);
+  return new Storage(config, platformID);
 }
 
 function getNoopDriver() {
@@ -273,7 +280,7 @@ function getNoopDriver() {
     clear: noop,
     length: () => 0,
     keys: () => [],
-    iterate: noop
+    iterate: noop,
   };
   return driver;
 }

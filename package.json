@@ -31,10 +31,11 @@
     "localforage-cordovasqlitedriver": "1.7.0"
   },
   "devDependencies": {
-    "@angular/compiler": "9",
-    "@angular/compiler-cli": "9",
-    "@angular/core": "9",
-    "@types/node": "12",
+    "@angular/common": "^9.1.12",
+    "@angular/compiler": "^9.1.12",
+    "@angular/compiler-cli": "^9.1.12",
+    "@angular/core": "^9.1.12",
+    "@types/node": "^12.12.54",
     "canonical-path": "0.0.2",
     "conventional-changelog-cli": "^2.0.1",
     "cpr": "^2.0.0",
