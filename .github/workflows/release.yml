@@ -28,4 +28,4 @@ jobs:
           GIT_AUTHOR_EMAIL: hi@ionicframework.com
           GIT_COMMITTER_NAME: Ionitron
           GIT_COMMITTER_EMAIL: hi@ionicframework.com
-        run: npx semantic-release
+        run: npx semantic-release --dry-run
