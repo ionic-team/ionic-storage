@@ -5,10 +5,9 @@
   "scripts": {
     "clean": "rimraf dist",
     "compile": "ng-packagr -p package.json",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "build": "npm run clean && npm run compile",
-    "preversion": "npm run build",
-    "version": "npm run changelog"
+    "prepublishOnly": "npm run build",
+    "cz": "git-cz"
   },
   "repository": {
     "type": "git",
@@ -35,9 +34,14 @@
     "@angular/compiler": "^9.1.12",
     "@angular/compiler-cli": "^9.1.12",
     "@angular/core": "^9.1.12",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/github": "^7.0.7",
+    "@semantic-release/npm": "^7.0.5",
     "@types/node": "^12.12.54",
     "canonical-path": "0.0.2",
-    "conventional-changelog-cli": "^2.0.1",
+    "commitizen": "^4.1.2",
+    "cz-conventional-changelog": "^3.1.0",
     "cpr": "^2.0.0",
     "dgeni": "0.4.9",
     "dgeni-packages": "0.26.2",
@@ -65,5 +69,39 @@
       "localforage",
       "localforage-cordovasqlitedriver"
     ]
+  },
+  "release": {
+    "branch": "stable",
+    "verifyConditions": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/github",
+      "@semantic-release/git"
+    ],
+    "prepare": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git"
+    ],
+    "publish": [
+      "@semantic-release/github",
+      [
+        "@semantic-release/npm",
+        {
+          "pkgRoot": "dist"
+        }
+      ]
+    ],
+    "success": [
+      "@semantic-release/github"
+    ],
+    "fail": [
+      "@semantic-release/github"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
