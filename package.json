@@ -73,6 +73,7 @@
   },
   "release": {
     "branches": "stable",
+    "pkgRoot": "dist",
     "verifyConditions": [
       "@semantic-release/changelog",
       "@semantic-release/npm",
@@ -86,12 +87,7 @@
     ],
     "publish": [
       "@semantic-release/github",
-      [
-        "@semantic-release/npm",
-        {
-          "pkgRoot": "dist"
-        }
-      ]
+      "@semantic-release/npm"
     ],
     "success": [
       "@semantic-release/github"
