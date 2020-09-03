@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/ionic-team/ionic-storage/compare/v2.3.0...v2.3.1) (2020-09-03)
+
+
+### Bug Fixes
+
+* **storage:** better detect ssr envs ([#197](https://github.com/ionic-team/ionic-storage/issues/197)) ([5d69ad3](https://github.com/ionic-team/ionic-storage/commit/5d69ad3ac4bbb4b027e0c103c8bfe193ee92500c))
+
 # [2.3.0](https://github.com/ionic-team/ionic-storage/compare/v2.2.0...v2.3.0) (2020-07-23)
 
 
@@ -77,6 +84,3 @@
 
 
 ## 1.1.1 (2016-09-30)
-
-
-
