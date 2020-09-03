@@ -1,4 +1,4 @@
-name: Ionic Storage CI
+name: Build
 
 on:
   push:
