@@ -159,7 +159,7 @@ export class Storage {
 
   /** @hidden */
   private _getDriverOrder(driverOrder: string[]) {
-    return driverOrder.map((driver: string) => {
+    return driverOrder.map((driver: string | any) => {
       switch (driver) {
         case 'sqlite':
           return CordovaSQLiteDriver._driver;
@@ -170,6 +170,7 @@ export class Storage {
         case 'localstorage':
           return LocalForage.LOCALSTORAGE;
       }
+      return driver;
     });
   }
 
