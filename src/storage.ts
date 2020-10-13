@@ -169,6 +169,8 @@ export class Storage {
           return LocalForage.WEBSQL;
         case 'localstorage':
           return LocalForage.LOCALSTORAGE;
+        default:
+          return driver;
       }
     });
   }
