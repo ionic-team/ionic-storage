@@ -178,8 +178,8 @@ export class Storage {
    * @param key the key to identify this value
    * @returns Returns a promise with the value of the given key
    */
-  get(key: string): Promise<any> {
-    return this._dbPromise.then((db) => db.getItem(key));
+  get<T = any>(key: string): Promise<T> {
+    return this._dbPromise.then((db) => db.getItem<T>(key));
   }
 
   /**
@@ -188,8 +188,8 @@ export class Storage {
    * @param value the value for this key
    * @returns Returns a promise that resolves when the key and value are set
    */
-  set(key: string, value: any): Promise<any> {
-    return this._dbPromise.then((db) => db.setItem(key, value));
+  set<T = any>(key: string, value: any): Promise<T> {
+    return this._dbPromise.then((db) => db.setItem<T>(key, value));
   }
 
   /**
@@ -197,7 +197,7 @@ export class Storage {
    * @param key the key to identify this value
    * @returns Returns a promise that resolves when the value is removed
    */
-  remove(key: string): Promise<any> {
+  remove(key: string): Promise<void> {
     return this._dbPromise.then((db) => db.removeItem(key));
   }
 
@@ -228,10 +228,10 @@ export class Storage {
    * @param iteratorCallback a callback of the form (value, key, iterationNumber)
    * @returns Returns a promise that resolves when the iteration has finished.
    */
-  forEach(
-    iteratorCallback: (value: any, key: string, iterationNumber: Number) => any
-  ): Promise<void> {
-    return this._dbPromise.then((db) => db.iterate(iteratorCallback));
+  forEach<T = any, U = any>(
+    iteratorCallback: (value: T, key: string, iterationNumber: number) => U
+  ): Promise<U> {
+    return this._dbPromise.then((db) => db.iterate<T, U>(iteratorCallback));
   }
 }
 
