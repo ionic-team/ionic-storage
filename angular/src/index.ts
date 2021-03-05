@@ -1,11 +1,14 @@
 import { NgModule, ModuleWithProviders, PLATFORM_ID } from '@angular/core';
 import {
-  getDefaultConfig,
   provideStorage,
   Storage,
-  StorageConfig,
   StorageConfigToken
 } from './storage';
+
+import {
+  getDefaultConfig,
+  StorageConfig
+} from '@ionic/storage';
 
 export { StorageConfig, StorageConfigToken, Storage };
 
@@ -19,7 +22,7 @@ export class IonicStorageModule {
         {
           provide: Storage,
           useFactory: provideStorage,
-          deps: [StorageConfigToken, PLATFORM_ID ]
+          deps: [StorageConfigToken, PLATFORM_ID]
         }
       ]
     };

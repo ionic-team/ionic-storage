@@ -24,21 +24,15 @@
     "native"
   ],
   "scripts": {
-    "verify": "npm run build",
-    "lint": "npm run eslint && npm run prettier -- --check",
-    "fmt": "npm run eslint -- --fix && npm run prettier -- --write",
-    "eslint": "eslint . --ext ts",
-    "prettier": "prettier \"**/*.{css,html,ts,js}\"",
     "build": "npm run clean && tsc && rollup -c rollup.config.js",
     "clean": "rimraf ./dist",
     "watch": "tsc --watch",
     "prepublishOnly": "npm run build"
   },
-  "prettier": "@ionic/prettier-config",
-  "eslintConfig": {
-    "extends": "@ionic/eslint-config/recommended"
-  },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@types/eslint": "^7.2.6",
+    "localforage": "^1.9.0",
     "rollup": "^2.40.0"
   }
 }

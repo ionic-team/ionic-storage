@@ -2,6 +2,7 @@
   "name": "ionic-storage-workspace",
   "workspaces": [
     "angular",
-    "lib"
+    "lib",
+    "examples/react"
   ]
 }
