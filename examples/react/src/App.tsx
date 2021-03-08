@@ -1,9 +1,9 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
+import { IonApp, IonButton, IonContent, IonHeader, IonPage, IonRouterOutlet, IonTitle, IonToolbar } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 
-import { Database, Storage } from '@ionic/storage';
+import { Database, Storage, Drivers } from '@ionic/storage';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -25,12 +25,46 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import { useEffect, useState } from 'react';
 
+// Implement the driver here.
+var ionicSecureStorageDriver = {
+    _driver: 'ionicSecureStorage',
+    _initStorage: async function(options: any) {
+      console.log('In init driver');
+      throw new Error('Ionic Secure Storage not available');
+    },
+    clear: function(callback: any) {
+    },
+    getItem: function(key: any, callback: any) {
+    },
+    iterate: function(iteratorCallback: any, successCallback: any) {
+    },    
+    key: function(n: any, callback: any) {
+    },
+    keys: function(callback: any) {
+    },
+    length: function(callback: any) {
+    },
+    removeItem: function(key: any, callback: any) {
+    },
+    setItem: function(key: any, value: any, callback: any) {
+    }
+}
+
 const App: React.FC = () => {
   const [db, setDb] = useState<Database | null>(null);
 
   useEffect(() => {
     async function initDb() {
-      const store = new Storage();
+      const store = new Storage({
+        driverOrder: [Drivers.SecureStorage, Drivers.IndexedDB, Drivers.LocalStorage]
+      });
+
+      await store.defineDriver(ionicSecureStorageDriver);
+      try {
+        store.setEncryptionKey('fake');
+      } catch (e) {
+        console.error(e);
+      }
 
       const db = await store.create();
 
@@ -42,18 +76,28 @@ const App: React.FC = () => {
     initDb();
   }, []);
 
+  const runSet = () => {
+    db.set('name', 'Max');
+  }
+
+  const runGet = async () => {
+    const val = await db.get('name');
+    console.log('Got value', val);
+  }
+
   return (
     <IonApp>
-      <IonReactRouter>
-        <IonRouterOutlet>
-          <Route exact path="/home">
-            <Home />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/home" />
-          </Route>
-        </IonRouterOutlet>
-      </IonReactRouter>
+      <IonPage>
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>Test</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
+          <IonButton onClick={runSet}>Set</IonButton>
+          <IonButton onClick={runGet}>Get</IonButton>
+        </IonContent>
+      </IonPage>
     </IonApp>
   )
 };

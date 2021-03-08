@@ -9,28 +9,41 @@ const defaultConfig = {
 
 export type Database = LocalForage;
 
+export const Drivers = {
+  SecureStorage: 'ionicSecureStorage',
+  IndexedDB: LocalForage.INDEXEDDB,
+  LocalStorage: LocalForage.LOCALSTORAGE
+};
+
 export class Storage {
   private _driver: string | null = null;
   private _config: StorageConfig;
   private _db: Database | null = null;
+  private _secureStorageDriver: LocalForageDriver | null = null;
 
   /**
    * Create a new Storage instance using the order of drivers and any additional config
    * options to pass to LocalForage.
    *
-   * Possible driver options are: ['sqlite', 'indexeddb', 'websql', 'localstorage'] and the
+   * Possible default driverOrder options are: ['indexeddb', 'localstorage'] and the
    * default is that exact ordering.
+   * 
+   * When using Ionic Secure Storage (enterprise only), use ['ionicSecureStorage', 'indexeddb', 'localstorage'] to ensure
+   * Secure Storage is used when available, or fall back to IndexedDB or LocalStorage on the web.
    */
   constructor(config: StorageConfig = defaultConfig) {
     const actualConfig = Object.assign(defaultConfig, config || {});
+    console.log('Constructing storage', defaultConfig, config, actualConfig);
     this._config = actualConfig;
   }
 
-  async create(): Promise<Database> {
+  async create(): Promise<Storage> {
+    console.log('Creating instance', this._config);
     const db = LocalForage.createInstance(this._config);
     this._db = db;
-    await db.setDriver(this._getDriverOrder(this._config.driverOrder));
-    return db;
+    await db.setDriver(this._config.driverOrder || []);
+    console.log('Set DB driver', db.driver());
+    return this;
     /*
       let db: LocalForage;
 
@@ -61,6 +74,10 @@ export class Storage {
    * await storage.create();
    */
   async defineDriver(driver: LocalForageDriver) {
+    console.log('Defining driver', driver);
+    if (driver._driver === Drivers.SecureStorage) {
+      this._secureStorageDriver = driver;
+    }
     return LocalForage.defineDriver(driver);
   }
 
@@ -70,20 +87,6 @@ export class Storage {
    */
   get driver(): string | null {
     return this._driver;
-  }
-
-  /** @hidden */
-  private _getDriverOrder(driverOrder: string[] = []): string[] {
-    return driverOrder.map((driver: string) => {
-      switch (driver) {
-        case 'indexeddb':
-          return LocalForage.INDEXEDDB;
-        case 'websql':
-          return LocalForage.WEBSQL;
-        case 'localstorage':
-          return LocalForage.LOCALSTORAGE;
-      }
-    }).filter(d => !!d) as string[];
   }
 
   private assertDb(): Database {
@@ -160,6 +163,14 @@ export class Storage {
   ): Promise<void> {
     const db = this.assertDb();
     return db.iterate(iteratorCallback);
+  }
+
+  setEncryptionKey(key: string) {
+    if (this._driver !== 'ionicSecureStorage') {
+      throw new Error('@ionic-enterprise/secure-storage not installed. Encryption support not available');
+    } else {
+      (this._secureStorageDriver as any)?.setEncryptionKey(key);
+    }
   }
 }
 
