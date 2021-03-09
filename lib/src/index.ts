@@ -1,35 +1,42 @@
 import LocalForage from 'localforage';
 
-const defaultConfig = {
-  name: '_ionicstorage',
-  storeName: '_ionickv',
-  dbKey: '_ionickey',
-  driverOrder: ['indexeddb', 'websql', 'localstorage'],
-};
-
 /** @hidden */
-export interface StorageConfig {
-  name?: string;
-  version?: number;
-  size?: number;
-  storeName?: string;
-  description?: string;
-  driverOrder?: string[];
-  dbKey?: string;
-}
-
-export type Database = LocalForage;
-
 export const Drivers = {
   SecureStorage: 'ionicSecureStorage',
   IndexedDB: LocalForage.INDEXEDDB,
   LocalStorage: LocalForage.LOCALSTORAGE
 };
 
+export interface StorageConfig {
+  name?: string;
+  version?: number;
+  size?: number;
+  storeName?: string;
+  description?: string;
+  driverOrder?: Driver[];
+  dbKey?: string;
+}
+
+// TODO: Figure out why we can't get type LocalForage to work here in d.ts that is generated
+export type Database = any;
+
+type Driver = any;
+
+const defaultConfig = {
+  name: '_ionicstorage',
+  storeName: '_ionickv',
+  dbKey: '_ionickey',
+  driverOrder: [
+    Drivers.SecureStorage,
+    Drivers.IndexedDB,
+    Drivers.LocalStorage
+  ]
+};
+
 export class Storage {
   private _config: StorageConfig;
   private _db: Database | null = null;
-  private _secureStorageDriver: LocalForageDriver | null = null;
+  private _secureStorageDriver: Driver | null = null;
 
   /**
    * Create a new Storage instance using the order of drivers and any additional config
@@ -54,13 +61,13 @@ export class Storage {
   }
 
   /**
-   * Define a new LocalForageDriver. Must be called before
+   * Define a new Driver. Must be called before
    * initializing the database. Example:
    * 
    * await storage.defineDriver(myDriver);
    * await storage.create();
    */
-  async defineDriver(driver: LocalForageDriver) {
+  async defineDriver(driver: Driver) {
     if (driver._driver === Drivers.SecureStorage) {
       this._secureStorageDriver = driver;
     }
