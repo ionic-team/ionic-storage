@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 
+import IonicSecureStorageDriver from '@ionic-enterprise/secure-storage/driver';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -9,9 +11,12 @@ import { Storage } from '@ionic/storage-angular';
 export class HomePage {
 
   constructor(private storage: Storage) {
-    console.log('Got storage here', storage);
+  }
 
-    storage.create();
+  ionViewWillEnter() {
+    this.storage.defineDriver(IonicSecureStorageDriver);
+    this.storage.create();
+    this.storage.setEncryptionKey('fake');
   }
 
   async setValue() {
