@@ -13,9 +13,9 @@ export class HomePage {
   constructor(private storage: Storage) {
   }
 
-  ionViewWillEnter() {
-    this.storage.defineDriver(IonicSecureStorageDriver);
-    this.storage.create();
+  async ionViewWillEnter() {
+    await this.storage.defineDriver(IonicSecureStorageDriver);
+    await this.storage.create();
     this.storage.setEncryptionKey('fake');
   }
 
