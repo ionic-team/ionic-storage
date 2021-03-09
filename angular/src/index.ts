@@ -12,31 +12,35 @@ const StorageConfigToken = new InjectionToken<any>(
 
 export { StorageConfig, StorageConfigToken, Storage };
 
-
-function getNoopDriver() {
-  // noop driver for ssr environment
-  const noop = () => { };
-  const driver: any = {
-    getItem: noop,
-    setItem: noop,
-    removeItem: noop,
-    clear: noop,
-    length: () => 0,
-    keys: () => [],
-    iterate: noop,
-  };
-  return driver;
+class NoopStorage extends Storage {
+  constructor() {
+    super();
+  }
+  async create() {
+    return this;
+  }
+  async defineDriver() {
+  }
+  get driver(): string | null {
+    return 'noop';
+  }
+  async get(key: string) { return null; }
+  async set(key: string, value: any) { }
+  async remove(key: string): Promise<any> { }
+  async clear(): Promise<void> { }
+  async length(): Promise<number> { return 0; }
+  async keys() { return [] }
+  async forEach(iteratorCallback: (value: any, key: string, iterationNumber: Number) => any): Promise<void> { }
+  setEncryptionKey(key: string) { }
 }
 
 export function provideStorage(
   storageConfig: StorageConfig
 ): Storage {
-  /*
   if (isPlatformServer(this.platformId)) {
-    const noopDriver = getNoopDriver();
-    return noopDriver;
+    // When running in a server context return the NoopStorage
+    return new NoopStorage();
   }
-  */
 
   return new Storage(storageConfig);
 }
