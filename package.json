@@ -1,8 +1,0 @@
-{
-  "name": "ionic-storage-workspace",
-  "workspaces": [
-    "angular",
-    "lib",
-    "examples/react"
-  ]
-}

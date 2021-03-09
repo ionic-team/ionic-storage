@@ -5,6 +5,8 @@ import Home from './pages/Home';
 
 import { Database, Storage, Drivers } from '@ionic/storage';
 
+import IonicSecureStorageDriver from '@ionic-enterprise/secure-storage/driver';
+
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -24,6 +26,17 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import { useEffect, useState } from 'react';
+
+/*
+const IonicSecureStorageStub = {
+  async create(config: any) {
+    return IonicSecureStorageStubDB;
+  }
+}
+
+const IonicSecureStorageStubDB = {
+  async executeSql(...args: any[]) {}
+}
 
 // Implement the driver here.
 var ionicSecureStorageDriver = {
@@ -49,6 +62,7 @@ var ionicSecureStorageDriver = {
     setItem: function(key: any, value: any, callback: any) {
     }
 }
+*/
 
 const App: React.FC = () => {
   const [db, setDb] = useState<Database | null>(null);
@@ -59,7 +73,7 @@ const App: React.FC = () => {
         driverOrder: [Drivers.SecureStorage, Drivers.IndexedDB, Drivers.LocalStorage]
       });
 
-      await store.defineDriver(ionicSecureStorageDriver);
+      await store.defineDriver(IonicSecureStorageDriver);
       try {
         store.setEncryptionKey('fake');
       } catch (e) {

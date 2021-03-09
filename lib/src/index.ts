@@ -7,6 +7,17 @@ const defaultConfig = {
   driverOrder: ['indexeddb', 'websql', 'localstorage'],
 };
 
+/** @hidden */
+export interface StorageConfig {
+  name?: string;
+  version?: number;
+  size?: number;
+  storeName?: string;
+  description?: string;
+  driverOrder?: string[];
+  dbKey?: string;
+}
+
 export type Database = LocalForage;
 
 export const Drivers = {
@@ -172,19 +183,4 @@ export class Storage {
       (this._secureStorageDriver as any)?.setEncryptionKey(key);
     }
   }
-}
-
-/** @hidden */
-export function getDefaultConfig() {
-}
-
-/** @hidden */
-export interface StorageConfig {
-  name?: string;
-  version?: number;
-  size?: number;
-  storeName?: string;
-  description?: string;
-  driverOrder?: string[];
-  dbKey?: string;
 }

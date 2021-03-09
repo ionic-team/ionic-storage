@@ -4,9 +4,10 @@
   "private": true,
   "dependencies": {
     "@capacitor/core": "2.4.7",
+    "@ionic-enterprise/secure-storage": "file:../../../enterprise-offline-storage",
     "@ionic/react": "^5.5.0",
     "@ionic/react-router": "^5.5.0",
-    "@ionic/storage": "^2.3.1",
+    "@ionic/storage": "file:../../lib",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.6.3",
@@ -62,7 +63,7 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "2.4.7"
+    "@capacitor/cli": "^2.4.7"
   },
   "description": "An Ionic project"
 }
