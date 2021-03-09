@@ -1,7 +1,4 @@
-import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonButton, IonContent, IonHeader, IonPage, IonRouterOutlet, IonTitle, IonToolbar } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home';
+import { IonApp, IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 
 import { Database, Storage, Drivers } from '@ionic/storage';
 
@@ -74,15 +71,16 @@ const App: React.FC = () => {
       });
 
       await store.defineDriver(IonicSecureStorageDriver);
+      const db = await store.create();
+
       try {
         store.setEncryptionKey('fake');
       } catch (e) {
-        console.error(e);
+        console.error('Unable to set encryption key');
+        console.error(e.message);
       }
 
-      const db = await store.create();
-
-      console.log('Created db', db);
+      console.log('Created db', db.driver);
 
       setDb(db);
     }

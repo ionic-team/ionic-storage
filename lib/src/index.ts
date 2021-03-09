@@ -27,7 +27,6 @@ export const Drivers = {
 };
 
 export class Storage {
-  private _driver: string | null = null;
   private _config: StorageConfig;
   private _db: Database | null = null;
   private _secureStorageDriver: LocalForageDriver | null = null;
@@ -44,37 +43,14 @@ export class Storage {
    */
   constructor(config: StorageConfig = defaultConfig) {
     const actualConfig = Object.assign(defaultConfig, config || {});
-    console.log('Constructing storage', defaultConfig, config, actualConfig);
     this._config = actualConfig;
   }
 
   async create(): Promise<Storage> {
-    console.log('Creating instance', this._config);
     const db = LocalForage.createInstance(this._config);
     this._db = db;
     await db.setDriver(this._config.driverOrder || []);
-    console.log('Set DB driver', db.driver());
     return this;
-    /*
-      let db: LocalForage;
-
-      const defaultConfig = getDefaultConfig();
-      const actualConfig = Object.assign(defaultConfig, config || {});
-
-      LocalForage.defineDriver(CordovaSQLiteDriver)
-        .then(() => {
-          db = LocalForage.createInstance(actualConfig);
-        })
-        .then(() =>
-          db.setDriver(this._getDriverOrder(actualConfig.driverOrder))
-        )
-        .then(() => {
-          this._driver = db.driver();
-          resolve(db);
-        })
-        .catch((reason) => reject(reason));
-    });
-    */
   }
 
   /**
@@ -85,7 +61,6 @@ export class Storage {
    * await storage.create();
    */
   async defineDriver(driver: LocalForageDriver) {
-    console.log('Defining driver', driver);
     if (driver._driver === Drivers.SecureStorage) {
       this._secureStorageDriver = driver;
     }
@@ -97,7 +72,7 @@ export class Storage {
    * @returns Name of the driver
    */
   get driver(): string | null {
-    return this._driver;
+    return this._db?.driver() || null;
   }
 
   private assertDb(): Database {
@@ -177,7 +152,7 @@ export class Storage {
   }
 
   setEncryptionKey(key: string) {
-    if (this._driver !== 'ionicSecureStorage') {
+    if (this.driver !== 'ionicSecureStorage') {
       throw new Error('@ionic-enterprise/secure-storage not installed. Encryption support not available');
     } else {
       (this._secureStorageDriver as any)?.setEncryptionKey(key);
