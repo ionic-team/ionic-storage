@@ -1,13 +1,84 @@
 [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fionic-team%2Fionic-storage%2Fbadge%3Fref%3Dmain&style=flat)](https://actions-badge.atrox.dev/ionic-team/ionic-storage/goto?ref=main)
 
 # Ionic Storage
-A simple key-value Storage module for Ionic apps based on LocalForage, with out-of-the-box support for SQLite. This utility makes it easy to use the best storage engine available without having to interact with it directly. Currently the ordering is SQLite, IndexedDB, WebSQL, and LocalStorage.
 
-One reason we prioritize SQLite is because of some OS-dependent issues with storage in the browser in native apps. As a major example, iOS will currently clear out Local Storage (and IndexedDB it's been shown) when the device runs low on memory. To avoid that, a file-based storage approach with SQLite will retain all your data.
+A simple key-value Storage module for Ionic apps. This utility uses the best storage engine available on the platform without having to interact with it directly (some configuration required, see docs below).
 
-If you want to perform arbitrary SQL queries and have one of the best storage options around, we recommend using the [Ionic Native SQLite plugin](https://ionicframework.com/docs/v2/native/sqlite/) directly. This engine no longer supports the `query` feature underneath as it was not portable and only worked for SQLite anyways.
+As of 3.x, this utility supports any JavaScript project (old versions only supported Angular), though there is now a new `@ionic/storage-angular` package with additional Angular functionality.
 
-For those coming from Ionic pre RC.0, here is more insight in to the reason for us moving to this module: https://github.com/ionic-team/ionic/issues/8269#issuecomment-250590367
+## Storage Engines
+
+Out of the box, Ionic Storage will use `IndexedDB` and `localstorage` where available. To use SQLite for native storage, see the required configuration section on SQLite below.
+
+## SQLite Installation
+
+The 2.x version of this plugin hard coded in the [localForage-cordovaSQLiteDriver](https://github.com/thgreasi/localForage-cordovaSQLiteDriver). This driver has been removed from the core code as of 3.x to provide more options for SQLite storage engines.
+
+In 3.x there are at least two good options for SQLite usage:
+
+1) For non-enterprise apps, the old `localForage-cordovaSQLiteDriver` is still a fine choice but does not support encryption and is community maintained. See below for installation instructions.
+
+2) For enterprise apps, we strongly recommend [Ionic Secure Storage](https://ionic.io/docs/secure-storage) which is an enterprise SQLite engine with full encryption support out of the box and is fully supported and maintained by the Ionic team.
+
+__Installing `localForage-cordovaSQLiteDriver`__
+
+```
+# If using Cordova, install the plugin using 
+ionic cordova plugin add cordova-sqlite-storage
+# If using Capacitor, install the plugin using
+npm install cordova-sqlite-storage
+
+# Then, install the npm library
+npm install localforage-cordovasqlitedriver
+```
+
+__Adding driver to `driverOrder`__
+
+For non-Angular projects, pass the `CordovaSQLiteDriver._driver` to the `driverOrder` config option:
+
+```typescript
+import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
+
+const store = new Storage({
+  driverOrder: [CordovaSQLiteDriver._driver, Drivers.IndexedDB, Drivers.LocalStorage]
+});
+```
+
+In Angular, pass the same configuration when importing the `IonicStorageModule` in your page or app `NgModule`:
+
+```typescript
+import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
+
+@NgModule({
+  imports: [
+    // ...,
+    IonicStorageModule.forRoot({
+      driverOrder: [CordovaSQLiteDriver._driver, Drivers.IndexedDB]
+    })
+  ],
+  // ...
+})
+export class MyPageModule { }
+```
+
+__Registering driver__
+
+Finally, to register the driver, run `defineDriver()` on the storage instance to register the driver, making sure to call this before any data operations:
+
+```typescript
+import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver'
+
+await this.storage.defineDriver(CordovaSQLiteDriver);
+```
+
+
+## Encryption Support
+
+3.x adds a new method `setEncryptionKey` to support encryption when using with [Ionic Secure Storage](https://ionic.io/docs/secure-storage).
+
+This is an enterprise feature for teams with high security needs and provides the ability to use the simple `@ionic/storage` key-value API, or drop down to SQL for more powerful query and relational data support, all with full encryption. When paired with [Ionic Identity Vault](https://ionic.io/docs/identity-vault) teams can safely manage encryption keys and provide biometric authentication when on or offline.
+
+Visit the [Secure Storage](https://ionic.io/products/secure-storage) product page to learn more about Secure Storage and inquire about a trial.
 
 ### Installation
 
