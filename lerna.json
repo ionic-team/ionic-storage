@@ -1,6 +1,6 @@
 {
   "packages": [
-    "angular",
+    "angular/dist",
     "lib"
   ],
   "version": "3.0.0-alpha.2"
