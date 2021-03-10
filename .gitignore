@@ -1,5 +1,2 @@
 node_modules
-dist
-compiled
-
-.DS_Store
+lerna-debug.log
