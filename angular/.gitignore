@@ -1,2 +1,2 @@
-dist/
+dist/*
 !dist/package.json
