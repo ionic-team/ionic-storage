@@ -6,9 +6,113 @@ A simple key-value Storage module for Ionic apps. This utility uses the best sto
 
 As of 3.x, this utility supports any JavaScript project (old versions only supported Angular), though there is now a new `@ionic/storage-angular` package with additional Angular functionality.
 
-## Storage Engines
+Out of the box, Ionic Storage will use `IndexedDB` and `localstorage` where available. To use SQLite for native storage, see the [SQLite Installation](#sqlite-installation) instructions.
 
-Out of the box, Ionic Storage will use `IndexedDB` and `localstorage` where available. To use SQLite for native storage, see the required configuration section on SQLite below.
+### Installation
+
+```shell
+npm install @ionic/storage
+```
+
+When using Angular, install the additional `@ionic/storage-angular` library:
+
+```shell
+npm install @ionic/storage-angular
+```
+
+If you'd like to use SQLite as a storage engine, see the [SQLite Installation](#sqlite-installation) instructions.
+
+### Usage - React, Vue, Vanilla JavaScript
+
+### Usage - Angular
+
+Then edit your NgModule declaration in `src/app/app.module.ts` to add `IonicStorageModule` as an import:
+
+```typescript
+import { IonicStorageModule } from '@ionic/storage';
+
+@NgModule({
+  declarations: [
+    ...
+  ],
+  imports: [
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
+  ],
+  bootstrap: [IonicApp],
+  entryComponents: [
+    ...
+  ],
+  providers: [
+    ...
+  ]
+})
+export class AppModule { }
+```
+
+Now, you can easily inject `Storage` into a component:
+
+```typescript
+import { Component } from '@angular/core';
+import { Storage } from '@ionic/storage';
+
+@Component({
+  selector: 'page-home',
+  templateUrl: 'home.html'
+})
+export class HomePage {
+
+  constructor(private storage: Storage) {
+  }
+
+}
+```
+
+To set an item, use `Storage.set(key, value)`:
+
+```javascript
+await this.storage.set('name', 'Mr. Ionitron');
+```
+
+To get the item back, use `Storage.get(name).then((value) => {})` since `get()` returns a Promise:
+
+```javascript
+const name = await this.storage.get('name');
+console.log('Me: Hey, ' + name + '! You have a very nice name.');
+console.log('You: Thanks! I got it for my birthday.');
+```
+
+To remove an item:
+
+```javascript
+await this.storage.remove(key);
+```
+
+### Configuring Storage
+
+The Storage engine can be configured both with specific storage engine priorities, or custom configuration
+options to pass to localForage. See the localForage config docs for possible options: https://github.com/localForage/localForage#configuration
+
+#### React/Vue/Vanilla JavaScript configuration
+
+#### Angular configuration:
+
+```typescript
+import { Drivers, Storage } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
+
+@NgModule({
+  //...
+  imports: [
+   IonicStorageModule.forRoot({
+     name: '__mydb',
+     driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
+   })
+ ],
+ //...
+})
+export class AppModule { }
+```
 
 ## SQLite Installation
 
@@ -71,7 +175,6 @@ import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver'
 await this.storage.defineDriver(CordovaSQLiteDriver);
 ```
 
-
 ## Encryption Support
 
 3.x adds a new method `setEncryptionKey` to support encryption when using with [Ionic Secure Storage](https://ionic.io/docs/secure-storage).
@@ -79,123 +182,3 @@ await this.storage.defineDriver(CordovaSQLiteDriver);
 This is an enterprise feature for teams with high security needs and provides the ability to use the simple `@ionic/storage` key-value API, or drop down to SQL for more powerful query and relational data support, all with full encryption. When paired with [Ionic Identity Vault](https://ionic.io/docs/identity-vault) teams can safely manage encryption keys and provide biometric authentication when on or offline.
 
 Visit the [Secure Storage](https://ionic.io/products/secure-storage) product page to learn more about Secure Storage and inquire about a trial.
-
-### Installation
-
-To use this in your Ionic /Angular apps, either start a fresh Ionic project which has it installed by default, or run:
-
-```bash
-npm install @ionic/storage
-```
-
-If you'd like to use SQLite as a storage engine, install a SQLite plugin (only works while running in a simulator or on device):
-
-```bash
-cordova plugin add cordova-sqlite-storage --save
-```
-
-### Usage
-
-
-
-Then edit your NgModule declaration in `src/app/app.module.ts` to add `IonicStorageModule` as an import:
-
-```typescript
-import { IonicStorageModule } from '@ionic/storage';
-
-@NgModule({
-  declarations: [
-    ...
-  ],
-  imports: [
-    IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    ...
-  ],
-  providers: [
-    ...
-  ]
-})
-export class AppModule { }
-```
-
-Now, you can easily inject `Storage` into a component:
-
-```typescript
-import { Component } from '@angular/core';
-import { Storage } from '@ionic/storage';
-
-@Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
-})
-export class HomePage {
-
-  constructor(private storage: Storage) {
-  }
-
-}
-```
-
-To make sure the storage system is ready before using, call `Storage.ready()`. You must be
-on 1.1.7 or greater to use the `ready()` method.
-
-```javascript
-storage.ready().then(() => {
-});
-```
-
-To set an item, use `Storage.set(key, value)`:
-
-```javascript
-this.storage.set('name', 'Mr. Ionitron');
-```
-
-To get the item back, use `Storage.get(name).then((value) => {})` since `get()` returns a Promise:
-
-```javascript
-this.storage.get('name').then((name) => {
-  console.log('Me: Hey, ' + name + '! You have a very nice name.');
-  console.log('You: Thanks! I got it for my birthday.');
-});
-```
-
-To remove the item, use `Storage.remove(key).then(() => { })`
-
-### Configuring Storage (new in 1.1.7)
-
-The Storage engine can be configured both with specific storage engine priorities, or custom configuration
-options to pass to localForage. See the localForage config docs for possible options: https://github.com/localForage/localForage#configuration
-
-
-```typescript
-import { Storage } from '@ionic/storage';
-
-
-@NgModule({
- declarations: ...,
- imports: [
-   IonicStorageModule.forRoot({
-     name: '__mydb',
-     driverOrder: ['indexeddb', 'sqlite', 'websql']
-   })
- ],
- bootstrap: ...,
- entryComponents: ...,
-})
-export class AppModule { }
-```
-
-
-### Development and release
-
-When you're ready to release a new version, run the following commands:
-
-1.  npm version (patch|minor|major)
-2.  npm run build
-3.  commit and push: `git push origin master --tags`
-4.  cd dist
-5.  npm publish
