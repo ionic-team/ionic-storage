@@ -1,6 +1,6 @@
 {
   "name": "@ionic/storage-angular",
-  "version": "3.0.0-alpha.1",
+  "version": "3.0.0-alpha.2",
   "description": "Ionic Storage utility",
   "scripts": {
     "clean": "rimraf dist",
@@ -100,5 +100,6 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "gitHead": "578c77a53843b8e9325fff00230e56440003c021"
 }
