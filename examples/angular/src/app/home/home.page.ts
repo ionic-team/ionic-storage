@@ -16,7 +16,6 @@ export class HomePage {
   async ionViewWillEnter() {
     await this.storage.defineDriver(IonicSecureStorageDriver);
     await this.storage.create();
-    this.storage.setEncryptionKey('fake');
   }
 
   async setValue() {
@@ -28,4 +27,9 @@ export class HomePage {
     console.log('Got value', value);
   }
 
+  async enumerate() {
+    this.storage.forEach((value, key, index) => {
+      console.log(`ITEM - ${key} = ${value} [${index}]`);
+    });
+  }
 }

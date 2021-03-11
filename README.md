@@ -26,12 +26,21 @@ If you'd like to use SQLite as a storage engine, see the [SQLite Installation](#
 
 ### Usage - React, Vue, Vanilla JavaScript
 
+```typescript
+const store = new Storage();
+await store.create();
+```
+
+See the [Usage - API](#usage-api) section below for an overview of the supported methods on the storage instance.
+
 ### Usage - Angular
 
-Then edit your NgModule declaration in `src/app/app.module.ts` to add `IonicStorageModule` as an import:
+Usage in Angular using Services and Dependency Injection requires importing the `IonicStorageModule` and then injecting the `Storage` class.
+
+First, edit your NgModule declaration in `src/app/app.module.ts` or in the module for the page you'll use the storage library in, and add  `IonicStorageModule` as an import:
 
 ```typescript
-import { IonicStorageModule } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 @NgModule({
   declarations: [
@@ -52,7 +61,7 @@ import { IonicStorageModule } from '@ionic/storage';
 export class AppModule { }
 ```
 
-Now, you can easily inject `Storage` into a component:
+Next, inject `Storage` into a component:
 
 ```typescript
 import { Component } from '@angular/core';
@@ -67,28 +76,67 @@ export class HomePage {
   constructor(private storage: Storage) {
   }
 
+  async ngOnInit() {
+    // If using a custom driver:
+    // await this.storage.defineDriver(MyCustomDriver)
+    await this.storage.create();
+  }
 }
 ```
 
-To set an item, use `Storage.set(key, value)`:
+## Usage - API
+
+The Storage API provides ways to set, get, and remove a value associated with a key, along with clearing the database, accessing the stored keys and their quantity, and enumerating the values in the database.
+
+To set an item, use `set(key, value)`:
 
 ```javascript
-await this.storage.set('name', 'Mr. Ionitron');
+await storage.set('name', 'Mr. Ionitron');
 ```
 
-To get the item back, use `Storage.get(name).then((value) => {})` since `get()` returns a Promise:
+To get the item back, use `get(name)`:
 
 ```javascript
-const name = await this.storage.get('name');
-console.log('Me: Hey, ' + name + '! You have a very nice name.');
-console.log('You: Thanks! I got it for my birthday.');
+const name = await storage.get('name');
 ```
 
 To remove an item:
 
 ```javascript
-await this.storage.remove(key);
+await storage.remove(key);
 ```
+
+To clear all items:
+
+```javascript
+await storage.clear();
+```
+
+To get all keys stored:
+
+```javascript
+await storage.keys()
+```
+
+To get the quantity of key/value pairs stored:
+
+```javascript
+await storage.length()
+```
+
+To enumerate the stored key/value pairs:
+```javascript
+storage.forEach((key, value, index) => {
+});
+```
+
+To enable encryption when using the [Ionic Secure Storage](https://ionic.io/docs/secure-storage) driver:
+
+```javascript
+storage.setEncryptionKey('mykey');
+```
+
+See [Encryption Support](#encryption-support) below for more information.
 
 ### Configuring Storage
 
@@ -97,7 +145,16 @@ options to pass to localForage. See the localForage config docs for possible opt
 
 #### React/Vue/Vanilla JavaScript configuration
 
-#### Angular configuration:
+Pass configuration options in the `Storage` constructor:
+
+```typescript
+const storage = new Storage({
+  name: '__mydb',
+  driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
+});
+```
+
+#### Angular configuration
 
 ```typescript
 import { Drivers, Storage } from '@ionic/storage';
