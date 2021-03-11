@@ -183,7 +183,9 @@ In 3.x there are at least two good options for SQLite usage:
 
 2) For enterprise apps, we strongly recommend [Ionic Secure Storage](https://ionic.io/docs/secure-storage) which is an enterprise SQLite engine with full encryption support out of the box and is fully supported and maintained by the Ionic team.
 
-__Installing `localForage-cordovaSQLiteDriver`__
+### Using `localForage-CordovaSQLiteDriver`
+
+#### Installation
 
 ```
 # If using Cordova, install the plugin using 
@@ -195,7 +197,7 @@ npm install cordova-sqlite-storage
 npm install localforage-cordovasqlitedriver
 ```
 
-__Adding driver to `driverOrder`__
+#### Adding driver to configuration
 
 For non-Angular projects, pass the `CordovaSQLiteDriver._driver` to the `driverOrder` config option:
 
@@ -224,7 +226,7 @@ import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 export class MyPageModule { }
 ```
 
-__Registering driver__
+#### Registering Driver
 
 Finally, to register the driver, run `defineDriver()` on the storage instance to register the driver, making sure to call this before any data operations:
 
@@ -233,6 +235,66 @@ import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver'
 
 await this.storage.defineDriver(CordovaSQLiteDriver);
 ```
+
+### Using Ionic Secure Storage
+
+
+[Ionic Secure Storage](https://ionic.io/secure-storage) is an enterprise-ready, high-performance data store with SQL or key/value support and offering 256-bit AES encryption. When used in tandem with [Ionic Identity Vault](https://ionic.io/identity-vault), developers can securely manage encryption keys and build fully offline-enabled apps with biometric authentication using the fullest security capabilities available on modern mobile devices and operating systems.
+
+Ionic Secure Storage is an enterprise product and requires an active enterprise subscription or trial. To learn more and request a demo, visit the [Secure Storage product page](https://ionic.io/products/offline-storage).
+
+#### Installation
+
+Follow the [official installation guide](https://ionic.io/docs/secure-storage) to set up and install `@ionic-enterprise/secure-storage`.
+
+### Usage - React, Vue, Vanilla JavaScript
+
+```typescript
+import { Drivers } from '@ionic/storage';
+import IonicSecureStorageDriver from '@ionic-enterprise/secure-storage/driver';
+
+const store = new Storage({
+  driverOrder: [Drivers.SecureStorage, Drivers.IndexedDB, Drivers.LocalStorage]
+});
+
+await store.defineDriver(IonicSecureStorageDriver);
+```
+
+### Usage - Angular
+
+Usage in Angular using Services and Dependency Injection requires importing the `IonicStorageModule` and then injecting the `Storage` class.
+
+First, edit your NgModule declaration in `src/app/app.module.ts` or in the module for the page you'll use the storage library in, and add  `IonicStorageModule` as an import:
+
+```typescript
+import { Drivers } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
+
+@NgModule({
+  declarations: [
+    ...
+  ],
+  imports: [
+    IonicStorageModule.forRoot({
+      driverOrder: [Drivers.SecureStorage, Drivers.IndexedDB, Drivers.LocalStorage]
+    })
+  ],
+  // ...
+})
+export class AppModule { }
+```
+
+Then register the driver in your component:
+
+```typescript
+
+  async ngOnInit() {
+    await this.storage.defineDriver(IonicSecureStorageDriver);
+    await this.storage.create();
+  }
+```
+
+Then follow the instructions below to configure encryption support:
 
 ## Encryption Support
 
