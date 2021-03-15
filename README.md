@@ -304,7 +304,7 @@ Then follow the instructions below to configure encryption support:
 
 ## Encryption Support
 
-3.x adds a new method `setEncryptionKey` to support encryption when using with [Ionic Secure Storage](https://ionic.io/docs/secure-storage).
+3.x adds a new method `setEncryptionKey` to support encryption when using with [Ionic Secure Storage](https://ionic.io/docs/secure-storage) (see instructions above).
 
 This is an enterprise feature for teams with high security needs and provides the ability to use the simple `@ionic/storage` key-value API, or drop down to SQL for more powerful query and relational data support, all with full encryption. When paired with [Ionic Identity Vault](https://ionic.io/docs/identity-vault) teams can safely manage encryption keys and provide biometric authentication when on or offline.
 
