@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 
-import IonicSecureStorageDriver from '@ionic-enterprise/secure-storage/driver';
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -14,7 +12,6 @@ export class HomePage {
   }
 
   async ionViewWillEnter() {
-    await this.storage.defineDriver(IonicSecureStorageDriver);
     await this.storage.create();
   }
 

@@ -1,8 +1,6 @@
 import { IonApp, IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 
-import { Database, Storage, Drivers } from '@ionic/storage';
-
-import IonicSecureStorageDriver from '@ionic-enterprise/secure-storage/driver';
+import { Database, Storage } from '@ionic/storage';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -24,63 +22,14 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import { useEffect, useState } from 'react';
 
-/*
-const IonicSecureStorageStub = {
-  async create(config: any) {
-    return IonicSecureStorageStubDB;
-  }
-}
-
-const IonicSecureStorageStubDB = {
-  async executeSql(...args: any[]) {}
-}
-
-// Implement the driver here.
-var ionicSecureStorageDriver = {
-    _driver: 'ionicSecureStorage',
-    _initStorage: async function(options: any) {
-      console.log('In init driver');
-      throw new Error('Ionic Secure Storage not available');
-    },
-    clear: function(callback: any) {
-    },
-    getItem: function(key: any, callback: any) {
-    },
-    iterate: function(iteratorCallback: any, successCallback: any) {
-    },    
-    key: function(n: any, callback: any) {
-    },
-    keys: function(callback: any) {
-    },
-    length: function(callback: any) {
-    },
-    removeItem: function(key: any, callback: any) {
-    },
-    setItem: function(key: any, value: any, callback: any) {
-    }
-}
-*/
-
 const App: React.FC = () => {
   const [db, setDb] = useState<Database | null>(null);
 
   useEffect(() => {
     async function initDb() {
-      const store = new Storage({
-        driverOrder: [Drivers.SecureStorage, Drivers.IndexedDB, Drivers.LocalStorage]
-      });
+      const store = new Storage();
 
-      await store.defineDriver(IonicSecureStorageDriver);
       const db = await store.create();
-
-      try {
-        store.setEncryptionKey('fake');
-      } catch (e) {
-        console.error('Unable to set encryption key');
-        console.error(e.message);
-      }
-
-      console.log('Created db', db.driver);
 
       setDb(db);
     }

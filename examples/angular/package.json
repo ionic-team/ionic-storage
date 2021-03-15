@@ -21,7 +21,6 @@
     "@angular/router": "~11.2.0",
     "@capacitor/core": "2.4.7",
     "@capacitor/ios": "^2.4.7",
-    "@ionic-enterprise/secure-storage": "file:../../../enterprise-offline-storage",
     "@ionic/angular": "^5.5.2",
     "@ionic/storage-angular": "file:../../angular/dist",
     "rxjs": "~6.6.0",

@@ -5,7 +5,6 @@
   "dependencies": {
     "@capacitor/core": "2.4.7",
     "@capacitor/ios": "^2.4.7",
-    "@ionic-enterprise/secure-storage": "file:../../../enterprise-offline-storage",
     "@ionic/react": "^5.5.0",
     "@ionic/react-router": "^5.5.0",
     "@ionic/storage": "file:../../lib",
