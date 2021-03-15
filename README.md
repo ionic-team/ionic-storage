@@ -247,7 +247,9 @@ Ionic Secure Storage is an enterprise product and requires an active enterprise 
 
 Follow the [official installation guide](https://ionic.io/docs/secure-storage) to set up and install `@ionic-enterprise/secure-storage`.
 
-### Usage - React, Vue, Vanilla JavaScript
+## Usage
+
+### With React, Vue, Vanilla JavaScript
 
 ```typescript
 import { Drivers } from '@ionic/storage';
@@ -260,7 +262,7 @@ const store = new Storage({
 await store.defineDriver(IonicSecureStorageDriver);
 ```
 
-### Usage - Angular
+### With Angular
 
 Usage in Angular using Services and Dependency Injection requires importing the `IonicStorageModule` and then injecting the `Storage` class.
 
