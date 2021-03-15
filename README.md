@@ -10,7 +10,7 @@ Out of the box, Ionic Storage will use `IndexedDB` and `localstorage` where avai
 
 For teams building security sensitive applications requiring encryption, 3.x now supports encryption through Ionic Secure Storage, see [Encryption Support](#encryption-support) for instructions on using it.
 
-### Installation
+## Installation
 
 ```shell
 npm install @ionic/storage
@@ -24,16 +24,20 @@ npm install @ionic/storage-angular
 
 If you'd like to use SQLite as a storage engine, see the [SQLite Installation](#sqlite-installation) instructions.
 
-### Usage - React, Vue, Vanilla JavaScript
+## Usage
+
+### With React, Vue, Vanilla JavaScript
 
 ```typescript
+import { Storage } from '@ionic/storage';
+
 const store = new Storage();
 await store.create();
 ```
 
 See the [Usage - API](#usage-api) section below for an overview of the supported methods on the storage instance.
 
-### Usage - Angular
+### With Angular
 
 Usage in Angular using Services and Dependency Injection requires importing the `IonicStorageModule` and then injecting the `Storage` class.
 
@@ -84,7 +88,7 @@ export class HomePage {
 }
 ```
 
-## Usage - API
+## API
 
 The Storage API provides ways to set, get, and remove a value associated with a key, along with clearing the database, accessing the stored keys and their quantity, and enumerating the values in the database.
 
@@ -138,12 +142,12 @@ storage.setEncryptionKey('mykey');
 
 See [Encryption Support](#encryption-support) below for more information.
 
-### Configuring Storage
+## Configuration
 
 The Storage engine can be configured both with specific storage engine priorities, or custom configuration
 options to pass to localForage. See the localForage config docs for possible options: https://github.com/localForage/localForage#configuration
 
-#### React/Vue/Vanilla JavaScript configuration
+### In React/Vue/Vanilla JavaScript configuration
 
 Pass configuration options in the `Storage` constructor:
 
@@ -154,7 +158,7 @@ const storage = new Storage({
 });
 ```
 
-#### Angular configuration
+### Angular configuration
 
 ```typescript
 import { Drivers, Storage } from '@ionic/storage';
@@ -247,9 +251,9 @@ Ionic Secure Storage is an enterprise product and requires an active enterprise 
 
 Follow the [official installation guide](https://ionic.io/docs/secure-storage) to set up and install `@ionic-enterprise/secure-storage`.
 
-## Usage
+### Usage
 
-### With React, Vue, Vanilla JavaScript
+#### With React, Vue, Vanilla JavaScript
 
 ```typescript
 import { Drivers } from '@ionic/storage';
@@ -262,7 +266,7 @@ const store = new Storage({
 await store.defineDriver(IonicSecureStorageDriver);
 ```
 
-### With Angular
+#### With Angular
 
 Usage in Angular using Services and Dependency Injection requires importing the `IonicStorageModule` and then injecting the `Storage` class.
 
