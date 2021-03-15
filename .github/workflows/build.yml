@@ -23,6 +23,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Use npm 7
       run: npm install -g npm@latest
-    - run: npm install -g lerna
+    - run: npm install -g lerna@^3.21.0
     - run: lerna bootstrap
     - run: lerna run build
