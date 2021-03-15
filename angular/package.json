@@ -1,6 +1,6 @@
 {
   "name": "@ionic/storage-angular",
-  "version": "3.0.0-alpha.2",
+  "version": "3.0.0",
   "description": "Ionic Storage utility",
   "scripts": {
     "clean": "rimraf dist",
@@ -26,8 +26,7 @@
   },
   "homepage": "https://github.com/ionic-team/ionic-storage#readme",
   "dependencies": {
-    "localforage": "1.7.1",
-    "localforage-cordovasqlitedriver": "1.7.0"
+    "@ionic/storage": "^3.0.0"
   },
   "devDependencies": {
     "@angular/common": "^9.1.12",
