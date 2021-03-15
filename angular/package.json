@@ -67,8 +67,7 @@
       "entryFile": "src/index.ts"
     },
     "whitelistedNonPeerDependencies": [
-      "localforage",
-      "localforage-cordovasqlitedriver"
+      "localforage"
     ]
   },
   "release": {
