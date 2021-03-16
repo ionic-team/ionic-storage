@@ -1,3 +1,17 @@
+## [3.0.2]
+
+Major release with breaking changes. Adds support for non-Angular projects, such as React, Vue, or plain JS.
+
+Breaking changes:
+
+  * Angular support is now provided in `@ionic/storage-angular`.
+  * `ready()` has been removed. Once `create` is called, the rest of the operations will be ready to access.
+  * `localforage-cordovaSQLiteDriver` is no longer provided out of the box to provide more options for storage engines and to remove a Cordova dependency. See README for how to install it separately
+
+The actual storage API is essentially unchanged, so app code will likely port over with minimal modifications.
+
+See `README` for full installation and usage instructions.
+
 ## [2.3.1](https://github.com/ionic-team/ionic-storage/compare/v2.3.0...v2.3.1) (2020-09-03)
 
 
