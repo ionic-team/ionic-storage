@@ -25,6 +25,7 @@
   ],
   "scripts": {
     "publish": "np",
+    "test": "",
     "ts": "tsc",
     "build": "npm run clean && tsc && rollup -c rollup.config.js",
     "clean": "rimraf ./dist",
