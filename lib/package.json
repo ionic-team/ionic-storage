@@ -1,6 +1,6 @@
 {
   "name": "@ionic/storage",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Ionic Storage Helper",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
@@ -24,7 +24,7 @@
     "native"
   ],
   "scripts": {
-    "publish": "np",
+    "release": "np",
     "test": "",
     "ts": "tsc",
     "build": "npm run clean && tsc && rollup -c rollup.config.js",
