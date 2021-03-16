@@ -1,6 +1,6 @@
 ## [3.0.2]
 
-Major release with breaking changes. Adds support for non-Angular projects, such as React, Vue, or plain JS.
+Major release with breaking changes. Adds support for non-Angular projects, such as React, Vue, or plain JS, as well as the ability to specify different storage engines. Also adds support for [Ionic Secure Storage](https://ionic.io/docs/secure-storage) with Encryption support.
 
 Breaking changes:
 
