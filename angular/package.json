@@ -1,13 +1,14 @@
 {
   "name": "@ionic/storage-angular",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "description": "Ionic Storage utility",
   "scripts": {
     "clean": "rimraf dist",
     "compile": "ng-packagr -p package.json",
     "build": "npm run clean && npm run compile",
     "prepublishOnly": "npm run build",
-    "cz": "git-cz"
+    "cz": "git-cz",
+    "release": "npm run build && cd dist && np"
   },
   "repository": {
     "type": "git",
