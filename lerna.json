@@ -1,0 +1,7 @@
+{
+  "packages": [
+    "angular/dist",
+    "lib"
+  ],
+  "version": "3.0.0-alpha.5"
+}

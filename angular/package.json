@@ -1,0 +1,103 @@
+{
+  "name": "@ionic/storage-angular",
+  "version": "3.0.0",
+  "description": "Ionic Storage utility",
+  "scripts": {
+    "clean": "rimraf dist",
+    "compile": "ng-packagr -p package.json",
+    "build": "npm run clean && npm run compile",
+    "prepublishOnly": "npm run build",
+    "cz": "git-cz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ionic-team/ionic-storage.git"
+  },
+  "keywords": [
+    "ionic",
+    "angular",
+    "localforage",
+    "cordova",
+    "hybrid"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ionic-team/ionic-storage/issues"
+  },
+  "homepage": "https://github.com/ionic-team/ionic-storage#readme",
+  "dependencies": {
+    "@ionic/storage": "^3.0.0"
+  },
+  "devDependencies": {
+    "@angular/common": "^9.1.12",
+    "@angular/compiler": "^9.1.12",
+    "@angular/compiler-cli": "^9.1.12",
+    "@angular/core": "^9.1.12",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/github": "^7.0.7",
+    "@semantic-release/npm": "^7.0.5",
+    "@types/node": "^12.12.54",
+    "canonical-path": "0.0.2",
+    "commitizen": "^4.1.2",
+    "cpr": "^2.0.0",
+    "cz-conventional-changelog": "^3.1.0",
+    "dgeni": "^0.4.12",
+    "dgeni-packages": "^0.28.4",
+    "gulp": "^3.9.1",
+    "ng-packagr": "9",
+    "np": "3.0.4",
+    "rimraf": "^2.6.2",
+    "rxjs": "^6.5.3",
+    "semantic-release": "^17.1.1",
+    "semver": "^5.3.0",
+    "tslint": "^5.10.0",
+    "tslint-ionic-rules": "*",
+    "typescript": "3.8",
+    "zone.js": "~0.10.2"
+  },
+  "peerDependencies": {
+    "@angular/core": "*",
+    "rxjs": "*"
+  },
+  "$schema": "./node_modules/ng-packagr/package.schema.json",
+  "ngPackage": {
+    "lib": {
+      "entryFile": "src/index.ts"
+    },
+    "whitelistedNonPeerDependencies": [
+      "localforage"
+    ]
+  },
+  "release": {
+    "branches": "stable",
+    "pkgRoot": "dist",
+    "verifyConditions": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/github",
+      "@semantic-release/git"
+    ],
+    "prepare": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git"
+    ],
+    "publish": [
+      "@semantic-release/github",
+      "@semantic-release/npm"
+    ],
+    "success": [
+      "@semantic-release/github"
+    ],
+    "fail": [
+      "@semantic-release/github"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "gitHead": "0b550acdc2d21c95c68e0655b28698ec60fa283a"
+}
