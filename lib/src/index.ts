@@ -96,8 +96,8 @@ export class Storage {
    * @returns Returns a promise with the value of the given key
    */
   get(key: string): Promise<any> {
-    this.assertDb();
-    return this._db!.getItem(key);
+    const db = this.assertDb();
+    return db.getItem(key);
   }
 
   /**
