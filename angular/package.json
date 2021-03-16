@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/ionic-team/ionic-storage#readme",
   "dependencies": {
-    "@ionic/storage": "^3.0.0"
+    "@ionic/storage": "3.0.0-alpha.2"
   },
   "devDependencies": {
     "@angular/common": "^9.1.12",
@@ -66,7 +66,8 @@
       "entryFile": "src/index.ts"
     },
     "whitelistedNonPeerDependencies": [
-      "localforage"
+      "localforage",
+      "@ionic/storage"
     ]
   },
   "release": {
