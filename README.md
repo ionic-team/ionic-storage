@@ -47,19 +47,8 @@ First, edit your NgModule declaration in `src/app/app.module.ts` or in the modul
 import { IonicStorageModule } from '@ionic/storage-angular';
 
 @NgModule({
-  declarations: [
-    ...
-  ],
   imports: [
-    IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    ...
-  ],
-  providers: [
-    ...
   ]
 })
 export class AppModule { }
