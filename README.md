@@ -69,7 +69,7 @@ Next, inject `Storage` into a component:
 
 ```typescript
 import { Component } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'page-home',
