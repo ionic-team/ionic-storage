@@ -88,6 +88,9 @@ export class HomePage {
 }
 ```
 
+or create the storage this way in app.component.ts to have access to the same database instance across your app.
+
+
 ## API
 
 The Storage API provides ways to set, get, and remove a value associated with a key, along with clearing the database, accessing the stored keys and their quantity, and enumerating the values in the database.
