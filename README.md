@@ -77,6 +77,37 @@ export class HomePage {
 }
 ```
 
+Alternatively, an Angular Service can be created to manage all database operations in your app and constrain all configuration and database initialization to a single location. When doing this, don't forget to register this service in a `providers` array in your `NgModule` and ensure that the `IonicStorageModule` has been initialized in that `NgModule` as shown above. Here's an example of what this service might look like:
+
+```typescript
+import { Injectable } from '@angular/core';
+
+import { Storage } from '@ionic/storage-angular';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class StorageService {
+  private _storage: Storage | null = null;
+
+  constructor(private storage: Storage) {
+    this.init();
+  }
+
+  async init() {
+    // If using, define drivers here: await this.storage.defineDriver(/*...*/);
+    const storage = await this.storage.create();
+    this._storage = storage;
+  }
+
+  // Create and expose methods that users of this service can
+  // call, for example:
+  public set(key: string, value: any) {
+    this._storage?.set(key, value);
+  }
+}
+```
+
 ## API
 
 The Storage API provides ways to set, get, and remove a value associated with a key, along with clearing the database, accessing the stored keys and their quantity, and enumerating the values in the database.
