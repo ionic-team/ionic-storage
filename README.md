@@ -263,7 +263,7 @@ await this.storage.defineDriver(CordovaSQLiteDriver);
 ### Using Ionic Secure Storage
 
 
-[Ionic Secure Storage](https://ionic.io/secure-storage) is an enterprise-ready, high-performance data store with SQL or key/value support and offering 256-bit AES encryption. When used in tandem with [Ionic Identity Vault](https://ionic.io/docs/identity-vault), developers can securely manage encryption keys and build fully offline-enabled apps with biometric authentication using the fullest security capabilities available on modern mobile devices and operating systems.
+[Ionic Secure Storage](https://ionic.io/secure-storage) is an enterprise-ready, high-performance data store with SQL or key/value support and offering 256-bit AES encryption. When used in tandem with [Ionic Identity Vault](https://ionic.io/products/identity-vault), developers can securely manage encryption keys and build fully offline-enabled apps with biometric authentication using the fullest security capabilities available on modern mobile devices and operating systems.
 
 Ionic Secure Storage is an enterprise product and requires an active enterprise subscription or trial. To learn more and request a demo, visit the [Secure Storage product page](https://ionic.io/products/offline-storage).
 
