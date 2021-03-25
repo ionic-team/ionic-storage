@@ -332,9 +332,9 @@ Visit the [Secure Storage](https://ionic.io/products/secure-storage) product pag
 
 ### Encrypting an Existing SQLite Database
 
-A one-time migration must be performed to move to a new, encrypted database.
+A one-time migration must be performed to move to a new, encrypted database powered by Ionic Secure Storage.
 
-First, follow the installation steps above to update to v3 and the `localForage-CordovaSQLiteDriver`.
+First, follow the installation steps above to update to Ionic Storage v3, use the `localForage-CordovaSQLiteDriver`, and the Ionic Secure Storage.
 
 Next, remove the database name and drivers, if used, from `app.module.ts`:
 
