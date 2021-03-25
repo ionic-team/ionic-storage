@@ -367,9 +367,13 @@ async migrateDatabase() {
   newStore.setEncryptionKey('mykey');
 
   if (await origStore.length() > 0) {
+    // copy existing data into new, encrypted format
     await origStore.forEach((key, value, index) => {
       newStore.set(key, value);
     });
+
+    // remove old data
+    await origStore.clear();
   }
 
   this._storage = newStore;
