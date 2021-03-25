@@ -49,7 +49,7 @@ export class Storage {
    * Secure Storage is used when available, or fall back to IndexedDB or LocalStorage on the web.
    */
   constructor(config: StorageConfig = defaultConfig) {
-    const actualConfig = Object.assign(defaultConfig, config || {});
+    const actualConfig = Object.assign({}, defaultConfig, config || {});
     this._config = actualConfig;
   }
 
