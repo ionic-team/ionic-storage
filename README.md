@@ -16,7 +16,7 @@ For teams building security sensitive applications requiring encryption, 3.x now
 npm install @ionic/storage
 ```
 
-When using Angular, install the additional `@ionic/storage-angular` library:
+If using Angular, install the `@ionic/storage-angular` library instead:
 
 ```shell
 npm install @ionic/storage-angular
@@ -329,3 +329,53 @@ Then follow the instructions below to configure encryption support:
 This is an enterprise feature for teams with high security needs and provides the ability to use the simple `@ionic/storage` key-value API, or drop down to SQL for more powerful query and relational data support, all with full encryption. When paired with [Ionic Identity Vault](https://ionic.io/docs/identity-vault) teams can safely manage encryption keys and provide biometric authentication when on or offline.
 
 Visit the [Secure Storage](https://ionic.io/products/secure-storage) product page to learn more about Secure Storage and inquire about a trial.
+
+### Encrypting an Existing SQLite Database
+
+A one-time migration must be performed to move to a new, encrypted database powered by Ionic Secure Storage.
+
+First, follow the installation steps above to update to Ionic Storage v3, use the `localForage-CordovaSQLiteDriver`, and the Ionic Secure Storage.
+
+Next, remove the database name and drivers, if used, from `app.module.ts`:
+
+```
+@NgModule({
+  imports: [
+    // ...,
+    IonicStorageModule.forRoot()
+  ],
+  // ...
+})
+export class MyPageModule { }
+```
+
+Finally, in the service class, create a one time migration function that migrates data to an encrypted database. Execute this function on app load.
+
+```javascript
+async migrateDatabase() {
+  const origStore = new Storage({
+    name: 'originalDB', // the original database name
+    driverOrder: [CordovaSQLiteDriver._driver, Drivers.IndexedDB, Drivers.LocalStorage]
+  });
+  await origStore.defineDriver(CordovaSQLiteDriver);
+
+  const newStore = new Storage({
+    name: 'encryptedDB', // pick a new db name for the encrypted db
+    driverOrder: [Drivers.SecureStorage, Drivers.IndexedDB, Drivers.LocalStorage]
+  });
+  await newStore.defineDriver(IonicSecureStorageDriver);
+  newStore.setEncryptionKey('mykey');
+
+  if (await origStore.length() > 0) {
+    // copy existing data into new, encrypted format
+    await origStore.forEach((key, value, index) => {
+      newStore.set(key, value);
+    });
+
+    // remove old data
+    await origStore.clear();
+  }
+
+  this._storage = newStore;
+}
+```
