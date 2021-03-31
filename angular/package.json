@@ -7,8 +7,7 @@
     "compile": "ng-packagr -p package.json",
     "build": "npm run clean && npm run compile",
     "prepublishOnly": "npm run build",
-    "cz": "git-cz",
-    "release": "npm run build && cd dist && np"
+    "cz": "git-cz"
   },
   "repository": {
     "type": "git",
