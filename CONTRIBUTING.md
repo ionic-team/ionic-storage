@@ -1,9 +1,9 @@
 ### Development and release
 
-When you're ready to release a new version, run the following commands:
+Temporary release process until #213 is done:
 
-1.  npm version (patch|minor|major)
-2.  npm run build
-3.  commit and push: `git push origin master --tags`
-4.  cd dist
-5.  npm publish
+lerna run build
+cd lib
+npm run release
+cd ../angular
+npm run release
