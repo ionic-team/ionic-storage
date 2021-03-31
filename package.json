@@ -1,6 +1,9 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "release": "bash scripts/release.sh"
+  },
   "devDependencies": {
     "lerna": "^3.21.0"
   }
