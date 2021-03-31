@@ -1,6 +1,6 @@
 {
   "name": "@ionic/storage-angular",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "Ionic Storage utility",
   "scripts": {
     "clean": "rimraf dist",
@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/ionic-team/ionic-storage#readme",
   "dependencies": {
-    "@ionic/storage": "3.0.0-alpha.2"
+    "@ionic/storage": "^3.0.4"
   },
   "devDependencies": {
     "@angular/common": "^9.1.12",
