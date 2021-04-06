@@ -2,10 +2,10 @@
   "name": "@ionic/storage",
   "version": "3.0.5",
   "description": "Ionic Storage Helper",
-  "main": "dist/plugin.cjs.js",
+  "main": "dist/ionic-storage.cjs.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
-  "unpkg": "dist/plugin.js",
+  "unpkg": "dist/ionic-storage.js",
   "files": [
     "dist/"
   ],
