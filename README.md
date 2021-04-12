@@ -41,7 +41,7 @@ See the [Usage - API](#usage-api) section below for an overview of the supported
 
 Usage in Angular using Services and Dependency Injection requires importing the `IonicStorageModule` and then injecting the `Storage` class.
 
-First, edit your NgModule declaration in `src/app/app.module.ts` or in the module for the page you'll use the storage library in, and add  `IonicStorageModule` as an import:
+First, edit your NgModule declaration in `src/app/app.module.ts` or in the module for the component you'll use the storage library in, and add  `IonicStorageModule` as an import:
 
 ```typescript
 import { IonicStorageModule } from '@ionic/storage-angular';
@@ -54,17 +54,17 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 export class AppModule { }
 ```
 
-Next, inject `Storage` into a component:
+Next, inject `Storage` into a component. Note: this approach is meant for usage in a single component (such as `AppComponent`). In this case, `create()` should only be called once. For use in multiple components, we recommend creating a service (see next example).
 
 ```typescript
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'app-root',
+  templateUrl: 'app.component.html'
 })
-export class HomePage {
+export class AppComponent {
 
   constructor(private storage: Storage) {
   }
@@ -77,7 +77,7 @@ export class HomePage {
 }
 ```
 
-Alternatively, an Angular Service can be created to manage all database operations in your app and constrain all configuration and database initialization to a single location. When doing this, don't forget to register this service in a `providers` array in your `NgModule` and ensure that the `IonicStorageModule` has been initialized in that `NgModule` as shown above. Here's an example of what this service might look like:
+For more sophisticated usage, an Angular Service should be created to manage all database operations in your app and constrain all configuration and database initialization to a single location. When doing this, don't forget to register this service in a `providers` array in your `NgModule` and ensure that the `IonicStorageModule` has been initialized in that `NgModule` as shown above. Here's an example of what this service might look like:
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -107,6 +107,8 @@ export class StorageService {
   }
 }
 ```
+
+Then, inject the `StorageService` into your pages and other components that need to interface with the Storage engine.
 
 ## API
 
