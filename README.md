@@ -340,7 +340,7 @@ First, follow the installation steps above to update to Ionic Storage v3, instal
 
 Next, remove the database name and drivers, if used, from `app.module.ts`:
 
-```
+```typescript
 @NgModule({
   imports: [
     // ...,
@@ -353,7 +353,7 @@ export class MyPageModule { }
 
 Finally, in the service class, create a one time migration function that migrates data to an encrypted database. Execute this function on app load.
 
-```javascript
+```typescript
 async migrateDatabase() {
   const origStore = new Storage({
     name: 'originalDB', // the original database name
