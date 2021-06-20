@@ -77,7 +77,7 @@ export class AppComponent {
 }
 ```
 
-For more sophisticated usage, an Angular Service should be created to manage all database operations in your app and constrain all configuration and database initialization to a single location. When doing this, don't forget to register this service in a `providers` array in your `NgModule` and ensure that the `IonicStorageModule` has been initialized in that `NgModule` as shown above. Here's an example of what this service might look like:
+For more sophisticated usage, an Angular Service should be created to manage all database operations in your app and constrain all configuration and database initialization to a single location. When doing this, don't forget to register this service in a `providers` array in your `NgModule` if not using `providedIn: 'root'`, and ensure that the `IonicStorageModule` has been initialized in that `NgModule` as shown above. Here's an example of what this service might look like:
 
 ```typescript
 import { Injectable } from '@angular/core';
