@@ -159,7 +159,7 @@ export class Storage {
   }
 
   setEncryptionKey(key: string) {
-    if (this.driver !== 'ionicSecureStorage') {
+    if (!this._secureStorageDriver) {
       throw new Error('@ionic-enterprise/secure-storage not installed. Encryption support not available');
     } else {
       (this._secureStorageDriver as any)?.setEncryptionKey(key);
