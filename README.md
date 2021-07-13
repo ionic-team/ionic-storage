@@ -265,7 +265,7 @@ await this.storage.defineDriver(CordovaSQLiteDriver);
 ### Using Ionic Secure Storage
 
 
-[Ionic Secure Storage](https://ionic.io/secure-storage) is an enterprise-ready, high-performance data store with SQL or key/value support and offering 256-bit AES encryption. When used in tandem with [Ionic Identity Vault](https://ionic.io/products/identity-vault), developers can securely manage encryption keys and build fully offline-enabled apps with biometric authentication using the fullest security capabilities available on modern mobile devices and operating systems.
+[Ionic Secure Storage](https://ionic.io/docs/secure-storage) is an enterprise-ready, high-performance data store with SQL or key/value support and offering 256-bit AES encryption. When used in tandem with [Ionic Identity Vault](https://ionic.io/products/identity-vault), developers can securely manage encryption keys and build fully offline-enabled apps with biometric authentication using the fullest security capabilities available on modern mobile devices and operating systems.
 
 Ionic Secure Storage is an enterprise product and requires an active enterprise subscription or trial. To learn more and request a demo, visit the [Secure Storage product page](https://ionic.io/products/offline-storage).
 
@@ -334,7 +334,7 @@ Visit the [Secure Storage](https://ionic.io/products/secure-storage) product pag
 
 ### Encrypting an Existing SQLite Database
 
-A one-time migration must be performed to move to a new, encrypted database powered by [Ionic Secure Storage](https://ionic.io/secure-storage).
+A one-time migration must be performed to move to a new, encrypted database powered by [Ionic Secure Storage](https://ionic.io/docs/secure-storage).
 
 First, follow the installation steps above to update to Ionic Storage v3, install the `localForage-CordovaSQLiteDriver` SQLite driver, and integrate Ionic Secure Storage.
 
