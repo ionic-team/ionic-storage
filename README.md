@@ -152,7 +152,7 @@ await storage.length()
 
 To enumerate the stored key/value pairs:
 ```javascript
-storage.forEach((key, value, index) => {
+storage.forEach((value, key, index) => {
 });
 ```
 
@@ -370,7 +370,7 @@ async migrateDatabase() {
 
   if (await origStore.length() > 0) {
     // copy existing data into new, encrypted format
-    await origStore.forEach((key, value, index) => {
+    await origStore.forEach((value, key, index) => {
       newStore.set(key, value);
     });
 
