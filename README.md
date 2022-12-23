@@ -228,7 +228,7 @@ npm install localforage-cordovasqlitedriver
 For non-Angular projects, pass the `CordovaSQLiteDriver._driver` to the `driverOrder` config option:
 
 ```typescript
-import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
+import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 
 const store = new Storage({
   driverOrder: [CordovaSQLiteDriver._driver, Drivers.IndexedDB, Drivers.LocalStorage]
@@ -257,7 +257,11 @@ export class MyPageModule { }
 Finally, to register the driver, run `defineDriver()` on the storage instance to register the driver, making sure to call this before any data operations:
 
 ```typescript
-import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver'
+import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver'
+
+const store = new Storage({
+  driverOrder: [CordovaSQLiteDriver._driver, Drivers.IndexedDB, Drivers.LocalStorage]
+});
 
 await this.storage.defineDriver(CordovaSQLiteDriver);
 ```
