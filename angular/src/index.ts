@@ -1,6 +1,6 @@
 import { isPlatformServer } from '@angular/common';
 import type { ModuleWithProviders } from '@angular/core';
-import { InjectionToken, NgModule } from '@angular/core';
+import { InjectionToken, NgModule, PLATFORM_ID } from '@angular/core';
 import { Storage, StorageConfig } from '@ionic/storage';
 
 const StorageConfigToken = new InjectionToken<any>('STORAGE_CONFIG_TOKEN');
@@ -45,8 +45,8 @@ class NoopStorage extends Storage {
   setEncryptionKey(key: string) {}
 }
 
-export function provideStorage(storageConfig: StorageConfig): Storage {
-  if (isPlatformServer(this.platformId)) {
+export function provideStorage(platformId: any, storageConfig: StorageConfig): Storage {
+  if (isPlatformServer(platformId)) {
     // When running in a server context return the NoopStorage
     return new NoopStorage();
   }
@@ -64,7 +64,7 @@ export class IonicStorageModule {
         {
           provide: Storage,
           useFactory: provideStorage,
-          deps: [StorageConfigToken],
+          deps: [PLATFORM_ID, StorageConfigToken],
         },
       ],
     };
