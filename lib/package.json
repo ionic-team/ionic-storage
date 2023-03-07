@@ -24,7 +24,7 @@
     "native"
   ],
   "scripts": {
-    "release": "np",
+    "release": "np --tag next",
     "test": "",
     "ts": "tsc",
     "build": "npm run clean && tsc && rollup -c rollup.config.js",
