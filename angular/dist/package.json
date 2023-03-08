@@ -1,6 +1,6 @@
 {
   "name": "@ionic/storage-angular",
-  "version": "3.0.6",
+  "version": "4.0.0-next.0",
   "description": "Ionic Storage utility",
   "repository": {
     "type": "git",

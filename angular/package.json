@@ -13,6 +13,11 @@
     "lint.fix": "npm run eslint && npm run prettier -- --write --cache",
     "cz": "git-cz"
   },
+  "files": [
+    "dist/",
+    "package.json",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ionic-team/ionic-storage.git"
