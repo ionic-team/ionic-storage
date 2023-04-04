@@ -35,7 +35,7 @@ const store = new Storage();
 await store.create();
 ```
 
-See the [Usage - API](#usage-api) section below for an overview of the supported methods on the storage instance.
+See the [API](#api) section below for an overview of the supported methods on the storage instance.
 
 ### With Angular
 
