@@ -238,7 +238,7 @@ const store = new Storage({
 In Angular, pass the same configuration when importing the `IonicStorageModule` in your page or app `NgModule`:
 
 ```typescript
-import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
+import CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 
 @NgModule({
   imports: [
