@@ -6,4 +6,4 @@ cd ../angular
 vim package.json
 npm run build
 cd dist
-npm publish
+npm publish --tag next
