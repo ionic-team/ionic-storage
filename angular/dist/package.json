@@ -1,6 +1,6 @@
 {
   "name": "@ionic/storage-angular",
-  "version": "3.0.6",
+  "version": "4.0.0",
   "description": "Ionic Storage utility",
   "repository": {
     "type": "git",
@@ -19,14 +19,13 @@
   },
   "homepage": "https://github.com/ionic-team/ionic-storage#readme",
   "dependencies": {
-    "@ionic/storage": "^3.0.4",
-    "tslib": "^1.10.0"
+    "@ionic/storage": "^4.0.0",
+    "tslib": "^2.3.0"
   },
   "peerDependencies": {
     "@angular/core": "*",
     "rxjs": "*"
   },
-  "$schema": "./node_modules/ng-packagr/package.schema.json",
   "release": {
     "branches": "stable",
     "pkgRoot": "dist",
@@ -58,14 +57,24 @@
     }
   },
   "gitHead": "0b550acdc2d21c95c68e0655b28698ec60fa283a",
-  "main": "bundles/ionic-storage-angular.umd.js",
-  "module": "fesm5/ionic-storage-angular.js",
-  "es2015": "fesm2015/ionic-storage-angular.js",
-  "esm5": "esm5/ionic-storage-angular.js",
-  "esm2015": "esm2015/ionic-storage-angular.js",
-  "fesm5": "fesm5/ionic-storage-angular.js",
-  "fesm2015": "fesm2015/ionic-storage-angular.js",
-  "typings": "ionic-storage-angular.d.ts",
-  "metadata": "ionic-storage-angular.metadata.json",
+  "module": "fesm2015/ionic-storage-angular.mjs",
+  "es2020": "fesm2020/ionic-storage-angular.mjs",
+  "esm2020": "esm2020/ionic-storage-angular.mjs",
+  "fesm2020": "fesm2020/ionic-storage-angular.mjs",
+  "fesm2015": "fesm2015/ionic-storage-angular.mjs",
+  "typings": "index.d.ts",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./index.d.ts",
+      "esm2020": "./esm2020/ionic-storage-angular.mjs",
+      "es2020": "./fesm2020/ionic-storage-angular.mjs",
+      "es2015": "./fesm2015/ionic-storage-angular.mjs",
+      "node": "./fesm2015/ionic-storage-angular.mjs",
+      "default": "./fesm2020/ionic-storage-angular.mjs"
+    }
+  },
   "sideEffects": false
 }
