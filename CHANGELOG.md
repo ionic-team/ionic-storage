@@ -1,4 +1,8 @@
-## [3.0.2]
+## [4.0.0](https://github.com/ionic-team/ionic-storage/compare/v3.0.6...v4.0.0) (2023-05-19)
+
+Improves compatibility with Angular 15+ applications.
+
+## [3.0.2](https://github.com/ionic-team/ionic-storage/compare/v2.3.1...v3.0.2) (2021-03-16)
 
 Major release with breaking changes. Adds support for non-Angular projects, such as React, Vue, or plain JS, as well as the ability to specify different storage engines. Also adds support for [Ionic Secure Storage](https://ionic.io/docs/secure-storage) with Encryption support.
 
