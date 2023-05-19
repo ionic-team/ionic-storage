@@ -1,6 +1,6 @@
 {
   "name": "@ionic/storage",
-  "version": "4.0.0-next.4",
+  "version": "4.0.0",
   "description": "Ionic Storage Helper",
   "main": "dist/ionic-storage.cjs.js",
   "module": "dist/esm/index.js",
