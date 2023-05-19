@@ -63,7 +63,7 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "^2.4.7"
+    "@capacitor/cli": "^5.0.3"
   },
   "description": "An Ionic project"
 }
