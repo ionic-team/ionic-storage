@@ -22,7 +22,7 @@
     "@capacitor/core": "5.0.4",
     "@capacitor/ios": "^5.0.4",
     "@ionic/angular": "^7.0.12",
-    "@ionic/storage-angular": "^4.0.0",
+    "@ionic/storage-angular": "file:../../angular/dist",
     "rxjs": "~7.8.0",
     "tslib": "^2.5.0",
     "zone.js": "~0.12.0"
