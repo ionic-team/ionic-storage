@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Ionic-storage Demo
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,11 +9,18 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Ionic-storage Demo</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <div id="container">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h3>{{ message }}</h3>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     <ion-button (click)="setValue()">Set</ion-button>
     <ion-button (click)="getValue()">Get</ion-button>
     <ion-button (click)="enumerate()">Enumerate</ion-button>

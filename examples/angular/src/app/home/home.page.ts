@@ -8,11 +8,14 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class HomePage {
 
+  message: string;
+
   constructor(private storage: Storage) {
   }
 
   async ionViewWillEnter() {
     await this.storage.create();
+    this.message = 'Press Set, Then Press Get';
   }
 
   async setValue() {
@@ -21,12 +24,14 @@ export class HomePage {
 
   async getValue() {
     const value = await this.storage.get('name');
-    console.log('Got value', value);
+    this.message = `Got value ${value}`;
+    console.log(this.message);
   }
 
   async enumerate() {
     this.storage.forEach((value, key, index) => {
-      console.log(`ITEM - ${key} = ${value} [${index}]`);
+      this.message = `ITEM - ${key} = ${value} [${index}]`
+      console.log(this.message);
     });
   }
 }
