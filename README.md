@@ -183,7 +183,7 @@ const storage = new Storage({
 ### Angular configuration
 
 ```typescript
-import { Drivers, Storage } from '@ionic/storage';
+import { Drivers } from '@ionic/storage';
 import { IonicStorageModule } from '@ionic/storage-angular';
 
 @NgModule({
